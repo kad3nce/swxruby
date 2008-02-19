@@ -8,13 +8,15 @@ class BytecodeConverter
 	  NULL_TERMINATOR = '00'
 	
 	  def convert(data)
-	    begin
-  	    send("#{data.class.to_s.downcase}_to_bytecode", data)
-	    rescue NoMethodError
+	    conversion_method = "#{data.class.to_s.downcase}_to_bytecode"
+	    
+	    if respond_to?(conversion_method)
+	      send(conversion_method, data)
+	    else
 				# Convert the object to a hash of its instance variables 
 				object_hash = data.instance_values
 				
-				if object_hash.empty?	
+				if object_hash.empty?
 					raise StandardError, "#{data.class} is an unhandled data type."
 				else
 		      hash_to_bytecode(object_hash)
@@ -33,7 +35,7 @@ class BytecodeConverter
 			stack = []
 
 			# Add the bytecode to initialize the data structure
-			bytecode.push(if data.is_a?(Array) then ActionCodes::INIT_ARRAY else ActionCodes::INIT_OBJECT end)
+			bytecode.push(data.is_a?(Array) ? ActionCodes::INIT_ARRAY : ActionCodes::INIT_OBJECT)
 
 			# Add the length of the data structure to the bytecode
 			bytecode.push integer_to_bytecode(data.length)
@@ -41,42 +43,41 @@ class BytecodeConverter
 			# Convert each element in the data structure to bytecode
 			data.each do |element|
 				
-				# If we're iterating over a hash, then split the element's key/value
-				if (data.is_a?(Hash))
-					value = element[1]
+        # assume we're not iterating into a recursive data structure
+        complex_data_structure = false
+        
+				# if we're converting a hash, then convert the hash's value
+				if data.is_a?(Hash)
+  				value_bytecode = convert(element[1]) 
+  				complex_data_structure = true if value_bytecode.concludes_with?(ActionCodes::INIT_OBJECT, ActionCodes::INIT_ARRAY)
+  				# set the element local variable to the key of the hash
 					element = element[0]
 				end
-
-				# ===========================================================
-				# = TODO: Remove ActiveRecord::Base check from if statement =
-				# ===========================================================
-
-				# Create a push of the current bytecode, if
-					 # recursing into a complex data structure
-					 #									 							# or
-				if (element.is_a?(Array) 							|| 
-					    value.is_a?(Array)						  || 
-						element.is_a?(Hash)  							|| 
-						  value.is_a?(Hash)	 							|| 
-						element.is_a?(ActiveRecord::Base) || # we're approaching the 65535 byte limit that can be stored in a single push.
-						  value.is_a?(ActiveRecord::Base) || calculate_bytecode_length(bytecode) > 65518)
-
-					# If we haven't written any bytecode into the local
-					# buffer yet (if it's empty), or all the data is already pushed, skip writing the push statement
-					bytecode.push generate_push_statement(bytecode) unless bytecode.empty? || bytecode.last.begins_with?('96')
-					
-					# Store current instruction on the stack (SWF bytecode is stored in reverse, so we reverse it here)
-					stack.push bytecode.reverse.join
-					
-					# Reset the bytecode
-					bytecode = []
-				end
-				
-				# value will only be populated if we're iterating over a hash
-				bytecode.push convert(value) if data.is_a?(Hash)
 				
 				# element will always contain something (whether iterating over a hash or an array)
-				bytecode.push convert(element)
+				element_bytecode = convert(element)
+				complex_data_structure = true if element_bytecode.concludes_with?(ActionCodes::INIT_OBJECT, ActionCodes::INIT_ARRAY)
+
+        # Create a push of the current bytecode, if
+					 # we recursed into a complex data structure
+					 #									 		 or we're approaching the 65535 byte limit that can be stored in a single push. 
+        if (complex_data_structure || calculate_bytecode_length(bytecode) > 65518)
+        
+          # If we haven't written any bytecode into the local
+          # buffer yet (if it's empty), or all the data is already pushed, skip writing the push statement
+          bytecode.push generate_push_statement(bytecode) unless bytecode.empty? || bytecode.last.begins_with?('96')
+          
+          # Store current instruction on the stack (SWF bytecode is stored in reverse, so we reverse it here)
+          stack.push bytecode.reverse.join
+          
+          # Reset the bytecode
+          bytecode = []
+        end
+        
+        # value_bytecode will be nil unless we converted a Hash
+				bytecode.push value_bytecode unless value_bytecode.nil?
+
+				bytecode.push element_bytecode
 			end
 
       # If we haven't written any bytecode into the local
@@ -89,8 +90,8 @@ class BytecodeConverter
 			# Join the stack array into a string and return it (SWF bytecode is stored in reverse, so we reverse it here)
 			stack.reverse.join
 		end
-	  alias array_to_bytecode complex_data_structure_to_bytecode 
-	  alias hash_to_bytecode complex_data_structure_to_bytecode
+	  alias array_to_bytecode complex_data_structure_to_bytecode
+    alias hash_to_bytecode complex_data_structure_to_bytecode
 	  
     def date_to_bytecode(date) #:nodoc#
       # Format: 2006-09-14

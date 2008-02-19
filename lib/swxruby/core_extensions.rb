@@ -19,6 +19,10 @@ class String
   def begins_with?(string)
     self[0..string.length-1] == string
   end
+
+  def concludes_with?(*strings)
+    strings.any? { |string| self[-(string.length)..-1] == string }
+  end
   
 	def hex_to_ascii
 		hex = self.gsub(' ', '')
