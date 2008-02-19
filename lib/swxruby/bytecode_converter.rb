@@ -49,6 +49,7 @@ class BytecodeConverter
 				# if we're converting a hash, then convert the hash's value
 				if data.is_a?(Hash)
   				value_bytecode = convert(element[1]) 
+  				# if we just converted an array or a hash, set complex_data_structure to true
   				complex_data_structure = true if value_bytecode.concludes_with?(ActionCodes::INIT_OBJECT, ActionCodes::INIT_ARRAY)
   				# set the element local variable to the key of the hash
 					element = element[0]
@@ -56,6 +57,7 @@ class BytecodeConverter
 				
 				# element will always contain something (whether iterating over a hash or an array)
 				element_bytecode = convert(element)
+				# if we just converted an array or a hash, set complex_data_structure to true
 				complex_data_structure = true if element_bytecode.concludes_with?(ActionCodes::INIT_OBJECT, ActionCodes::INIT_ARRAY)
 
         # Create a push of the current bytecode, if
