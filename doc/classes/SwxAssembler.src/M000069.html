@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>write_swf (SwxAssembler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 112</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_swf</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">debug</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">compression_level</span>=<span class="ruby-value">4</span>, <span class="ruby-identifier">allow_domain_url</span>=<span class="ruby-value str">''</span>, <span class="ruby-identifier">allow_domain</span>=<span class="ruby-keyword kw">true</span>)
+                  <span class="ruby-comment cmt"># Set up SwfAssembler state</span>
+                  <span class="ruby-ivar">@debug</span> = <span class="ruby-identifier">debug</span>
+                  <span class="ruby-ivar">@compression_level</span> = <span class="ruby-identifier">compression_level</span>
+                  <span class="ruby-ivar">@allow_domain_url</span> = <span class="ruby-identifier">allow_domain_url</span>
+                        <span class="ruby-ivar">@allow_domain</span> = <span class="ruby-identifier">allow_domain</span>
+
+      <span class="ruby-identifier">swx_bytecode</span> = <span class="ruby-identifier">generate_swx_bytecode</span>(<span class="ruby-identifier">data</span>)
+
+                        <span class="ruby-comment cmt"># Convert the bytecode string to ASCII file format</span>
+      <span class="ruby-identifier">swx_file</span> = <span class="ruby-identifier">swx_bytecode</span>.<span class="ruby-identifier">hex_to_ascii</span>
+
+      <span class="ruby-comment cmt"># Compress the file if compression is turned on</span>
+      <span class="ruby-identifier">swx_file</span> = <span class="ruby-identifier">compress_swx_file</span>(<span class="ruby-identifier">swx_file</span>, <span class="ruby-identifier">compression_level</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">compression_level</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+
+      <span class="ruby-comment cmt"># ====================================</span>
+      <span class="ruby-comment cmt"># = TODO: Remove this before release =</span>
+      <span class="ruby-comment cmt"># ====================================</span>
+      <span class="ruby-comment cmt"># Write the file (for manual 'loadMovie' testing in Flash)</span>
+      <span class="ruby-comment cmt"># File.open('/Users/Jed/Development/Libraries/rSWX/testing/flash/rswx_data.swx', 'w+') do |file|</span>
+      <span class="ruby-comment cmt">#   file &lt;&lt; swx_file</span>
+      <span class="ruby-comment cmt"># end      </span>
+
+      <span class="ruby-identifier">swx_file</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

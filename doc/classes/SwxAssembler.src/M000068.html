@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate_swx_bytecode (SwxAssembler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 79</span>
+          <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_swx_bytecode</span>(<span class="ruby-identifier">data</span>)
+            <span class="ruby-comment cmt"># Create the DoAction tag</span>
+                        <span class="ruby-identifier">do_action_block</span> = []
+                        
+                        <span class="ruby-comment cmt"># Wrap the data bytecode in debug flags if debugging is turned on</span>
+                        <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">DEBUG_START</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+                        
+                        <span class="ruby-comment cmt"># Generate bytecode for the data (payload)</span>
+                        <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">generate_data_bytecode</span>(<span class="ruby-identifier">data</span>)
+      
+                        <span class="ruby-comment cmt"># Allow domain? If so add allow domain statement to the SWF</span>
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@allow_domain</span>)
+        <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">allow_domain_bytecode</span>(<span class="ruby-ivar">@allow_domain_url</span>)
+      <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-comment cmt"># Wrap the data bytecode in debug flags if debugging is turned on</span>
+                        <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">DEBUG_END</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+
+      <span class="ruby-comment cmt"># Calculate the size of the do_action block</span>
+                        <span class="ruby-identifier">do_action_block_size_in_bytes</span> = <span class="ruby-identifier">string_length_in_bytes_hex</span>(<span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">join</span>, <span class="ruby-value">4</span>)
+                        <span class="ruby-comment cmt"># Add the appropriate flags to the do_action block and concat the finished do_action block into a string</span>
+                        <span class="ruby-identifier">do_action_block_string</span> = <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">DO_ACTION</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">do_action_block_size_in_bytes</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">join</span>
+
+                        <span class="ruby-comment cmt"># Create the rest of the SWF</span>
+                        <span class="ruby-identifier">header_type</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@compression_level</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span> <span class="ruby-constant">COMPRESSED_SWF</span> <span class="ruby-keyword kw">else</span> <span class="ruby-constant">UNCOMPRESSED_SWF</span> <span class="ruby-keyword kw">end</span>
+
+                        <span class="ruby-identifier">swf</span> = <span class="ruby-identifier">header_type</span> <span class="ruby-operator">+</span> <span class="ruby-constant">HEADER</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">do_action_block_string</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">SHOW_FRAME</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">END_SWF</span>
+                        <span class="ruby-identifier">swf_size_in_bytes</span> = <span class="ruby-identifier">string_length_in_bytes_hex</span>(<span class="ruby-identifier">swf</span>, <span class="ruby-value">4</span>)
+           
+                        <span class="ruby-comment cmt"># Replace length placeholder (from HEADER constant) with actual bytecode length</span>
+                        <span class="ruby-identifier">swf</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-value str">'LLLLLLLL'</span>, <span class="ruby-identifier">swf_size_in_bytes</span>)
+          <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

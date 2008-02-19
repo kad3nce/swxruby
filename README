@@ -1,0 +1,114 @@
+= SWX Ruby 0.7
+
+=== What is SWX?
+
+SWX is the native data format for the Flash Platform.
+
+SWX RPC is a remote procedure call protocol encoded in SWX and a viable alternative to XML and Flash Remoting. It's simple enough that you can get up and running with it in about five minutes. SWX RPC is perfect for building mashups (with easy-to-use APIs for Flickr, Twitter, and others), mobile applications (Flash Lite 2.0 and 2.1), and other data-driven Flash sites and applications. 
+
+=== What is SWX Ruby?
+
+SWX Ruby is the Ruby implementation of SWX RPC. It allows Rubyists to leverage their Ruby skills to build data-driven Flash applications using the wonderfully simple SWX data format. The current beta version assembles AVM1 SWF files (compatible with Flash 8 and below). By its 1.0 release, SWX Ruby will also assemble AVM2 SWF files.
+
+=== Installation
+
+==== Gem
+
+gem install swxruby
+
+  Note: The SWX Ruby gem declares 'json_pure' as a dependency. json_pure is the pure Ruby variant of the JSON gem. If you have a C compiler and would like better performance then do 'gem install json'
+
+==== Rails plugin
+
+After installing the gem, do 'swxruby --rails PATH_TO_ROOT_OF_YOUR_RAILS_APP'
+
+This will unpack a plugin into your Rails app. For further explanation of the files installed, see 'Rails Usage' below.
+
+=== Gem Usage (For Merb, Camping, Sinatra, et al.)
+
+  # Require the SWX Ruby gem
+  require 'rubygems'
+  require 'swxruby'
+
+  # Define a service class in the SwxServiceClasses name space
+  module SwxServiceClasses
+    class Simple
+      def echo_data(data)
+        data
+      end
+    end
+  end
+  
+  # Start making calls to SwxGateway#process
+  @swx_bytecode = SwxGateway.process(:serviceClass => 'Simple', :method => 'echo_data', :args => 'Hello World!', :debug => true)
+  # => Returns a binary string of SWX bytecode containing the result of Simple.new#echo_data('Hello World!'); debugging enabled
+  
+  # Use the method of your liking to stuff the bytecode into a file
+  ## merb
+   ===========================
+   = TODO: Verify this works =
+   ===========================
+  stream_file( { :filename => 'data.swf', :type => 'application/swf', :content_length => @swx_bytecode.length }) do
+    response.write @swx_bytecode
+  end
+   =================================================
+   = TODO: write examples for other web frameworks =
+   =================================================
+  send_file(@swx_bytecode, )
+  File.open('/my_swx_file.swx', 'w') do |file|
+    file << @swx_bytecode
+  end
+  send_data(@swx_bytecode, :type => 'application/swf', :filename => 'data.swf')
+  
+=== Rails Usage (For Everyone)
+
+SWX on Rails will look for your service classes in RAILS_ROOT/app/services.
+Simply create standard Ruby classes and drop them in this folder. Service classes 
+are composed of instance methods. SWX on Rails will instantiate your service
+class, call the specified method, and send the response back to the Flash Player.
+
+Take a peek at app/services/hello_world.rb for a working service class example.
+Alright, alright, I'll just show it to you here:
+
+  # hello_world.rb----------------------------------------
+  # Class and method names follow standard Ruby convention
+  class HelloWorld
+  	# Service class methods are instance methods.
+  	def just_say_the_words
+  		'Hello World!'
+  	end
+  end
+  #-------------------------------------------------------
+
+Here's a Moo card-esque example to call HelloWorld#just_say_the_words from the 
+Flash Player (place a MovieClip on stage with an instance name of 'loader' and
+fire up your development server):
+
+  //------------------------------------------------------
+  loader.serviceClass = "HelloWorld";
+  // Method names follow ActionScript convention 
+  // (converted to underscored server-side)
+  loader.method = "justSayTheWords";
+  loader.debug = true;
+  loader.loadMovie("http://localhost:3000/swx", "POST");
+
+  function onEnterFrame() {
+   // Will output 'Hello World!' once the SWX file is loaded.
+   trace(loader.result);
+  }
+  //------------------------------------------------------
+
+When you're ready for some robust ActionScript trickery, head to 
+http://swxformat.org/download/ to grab the SWX ActionScript library.
+
+Oh yeah, you may return ActiveRecord objects from your service classes; 
+SWX on Rails will happily serialize them for you. Go ahead, give it a try!
+
+SWX on Rails is beta and may break, throw its toys, eat your
+firstborn child, etc. 
+Please post bug reports/suggestions to http://groups.google.com/group/swxruby. 
+Full-featured tracker coming soon.
+=======================================
+NOTE: You may notice some Security Sandbox Violations when testing the example
+above in the Flash IDE. Rest assured, this is OK. Visit 
+http://swxformat.org/132 for further explanation.

@@ -1,0 +1,72 @@
+8
+
+dir
+34
+svn+ssh://meekish@rubyforge.org/var/svn/swxruby/trunk/lib/services
+svn+ssh://meekish@rubyforge.org/var/svn/swxruby
+
+
+
+2007-09-12T23:04:12.872676Z
+20
+meekish
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+64ae8ec5-7f57-401c-b70e-9f92ded5742b
+
+discovery_service.rb
+file
+57
+
+
+
+2007-10-08T23:45:05.000000Z
+f01a6e4df8532e6f5cdc372c8862b3f5
+2007-10-08T23:47:31.958550Z
+57
+meekish
+
+arithmetic.rb
+file
+0
+
+
+add
+
+hello_world.rb
+file
+
+
+
+
+2007-09-14T14:59:15.000000Z
+3eac5c93e061d39fac4f257b57d606c7
+2007-09-12T23:04:12.872676Z
+20
+meekish
+
+test_data_types.rb
+file
+
+
+
+
+2007-09-14T14:59:15.000000Z
+905d30ac3ed84685fd40f861b1ca9c27
+2007-09-11T23:39:22.174762Z
+15
+meekish
+has-props
+

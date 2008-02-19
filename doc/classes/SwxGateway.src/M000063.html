@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>nillify_nulls (SwxGateway)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/swxruby/swx_gateway.rb, line 23</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nillify_nulls</span>(<span class="ruby-identifier">args_array</span>)
+                        <span class="ruby-comment cmt"># Convert all strings containing 'null' to nil</span>
+                        <span class="ruby-identifier">args_array</span>.<span class="ruby-identifier">collect!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'null'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">else</span> <span class="ruby-identifier">arg</span> <span class="ruby-keyword kw">end</span> }
+                        <span class="ruby-comment cmt"># Return nil if the args array contained only 'null' strings</span>
+                        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args_array</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">else</span> <span class="ruby-identifier">args_array</span> <span class="ruby-keyword kw">end</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

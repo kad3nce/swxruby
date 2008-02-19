@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>extra_deps (Hoe)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File config/hoe.rb, line 44</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extra_deps</span> 
+    <span class="ruby-ivar">@extra_deps</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">x</span>).<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'hoe'</span> } 
+    <span class="ruby-ivar">@extra_deps</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

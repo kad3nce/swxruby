@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>complex_data_structure_to_bytecode (BytecodeConverter)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/swxruby/bytecode_converter.rb, line 48</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">complex_data_structure_to_bytecode</span>(<span class="ruby-identifier">data</span>) <span class="ruby-comment cmt">#:nodoc#</span>
+                        <span class="ruby-identifier">bytecode</span> = []
+                        
+                        <span class="ruby-comment cmt"># Keeps track of bytecode when recursing into nested data structures</span>
+                        <span class="ruby-identifier">stack</span> = []
+
+                        <span class="ruby-comment cmt"># Add the bytecode to initialize the data structure</span>
+                        <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">push</span>(<span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">then</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INIT_ARRAY</span> <span class="ruby-keyword kw">else</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">INIT_OBJECT</span> <span class="ruby-keyword kw">end</span>)
+
+                        <span class="ruby-comment cmt"># Add the length of the data structure to the bytecode</span>
+                        <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">integer_to_bytecode</span>(<span class="ruby-identifier">data</span>.<span class="ruby-identifier">length</span>)
+                        
+                        <span class="ruby-comment cmt"># Convert each element in the data structure to bytecode</span>
+                        <span class="ruby-identifier">data</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">element</span><span class="ruby-operator">|</span>
+                                
+                                <span class="ruby-comment cmt"># If we're iterating over a hash, then split the element's key/value</span>
+                                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>))
+                                        <span class="ruby-identifier">value</span> = <span class="ruby-identifier">element</span>[<span class="ruby-value">1</span>]
+                                        <span class="ruby-identifier">element</span> = <span class="ruby-identifier">element</span>[<span class="ruby-value">0</span>]
+                                <span class="ruby-keyword kw">end</span>
+
+                                <span class="ruby-comment cmt"># ===========================================================</span>
+                                <span class="ruby-comment cmt"># = TODO: Remove ActiveRecord::Base check from if statement =</span>
+                                <span class="ruby-comment cmt"># ===========================================================</span>
+
+                                <span class="ruby-comment cmt"># Create a push of the current bytecode, if</span>
+                                         <span class="ruby-comment cmt"># recursing into a complex data structure</span>
+                                         <span class="ruby-comment cmt">#                                                                                                                         # or</span>
+                                <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">element</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)                                                    <span class="ruby-operator">||</span> 
+                                            <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)                                               <span class="ruby-operator">||</span> 
+                                                <span class="ruby-identifier">element</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)                                                       <span class="ruby-operator">||</span> 
+                                                  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)                                                             <span class="ruby-operator">||</span> 
+                                                <span class="ruby-identifier">element</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>) <span class="ruby-operator">||</span> <span class="ruby-comment cmt"># we're approaching the 65535 byte limit that can be stored in a single push.</span>
+                                                  <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">calculate_bytecode_length</span>(<span class="ruby-identifier">bytecode</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">65518</span>)
+
+                                        <span class="ruby-comment cmt"># If we haven't written any bytecode into the local</span>
+                                        <span class="ruby-comment cmt"># buffer yet (if it's empty), or all the data is already pushed, skip writing the push statement</span>
+                                        <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">generate_push_statement</span>(<span class="ruby-identifier">bytecode</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">begins_with?</span>(<span class="ruby-value str">'96'</span>)
+                                        
+                                        <span class="ruby-comment cmt"># Store current instruction on the stack (SWF bytecode is stored in reverse, so we reverse it here)</span>
+                                        <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>
+                                        
+                                        <span class="ruby-comment cmt"># Reset the bytecode</span>
+                                        <span class="ruby-identifier">bytecode</span> = []
+                                <span class="ruby-keyword kw">end</span>
+                                
+                                <span class="ruby-comment cmt"># value will only be populated if we're iterating over a hash</span>
+                                <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">convert</span>(<span class="ruby-identifier">value</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+                                
+                                <span class="ruby-comment cmt"># element will always contain something (whether iterating over a hash or an array)</span>
+                                <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">convert</span>(<span class="ruby-identifier">element</span>)
+                        <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># If we haven't written any bytecode into the local</span>
+                        <span class="ruby-comment cmt"># buffer yet (if it's empty), or all the data is already pushed, skip writing the push statement</span>
+      <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">generate_push_statement</span>(<span class="ruby-identifier">bytecode</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">begins_with?</span>(<span class="ruby-value str">'96'</span>)
+                        
+                        <span class="ruby-comment cmt"># Add the bytecode to the local stack variable (SWF bytecode is stored in reverse, so we reverse it here)</span>
+                        <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">bytecode</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>
+                        
+                        <span class="ruby-comment cmt"># Join the stack array into a string and return it (SWF bytecode is stored in reverse, so we reverse it here)</span>
+                        <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

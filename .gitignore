@@ -1,0 +1,10 @@
+test/*
+test/fixtures/*
+test/unit/*
+log/*.log
+db/*.sqlite3
+tmp/**/*
+.DS_Store
+doc/api
+doc/app
+doc/plugins

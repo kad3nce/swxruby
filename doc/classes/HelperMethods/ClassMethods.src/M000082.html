@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>make_little_endian (HelperMethods::ClassMethods)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/swxruby/helper_module.rb, line 48</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">make_little_endian</span>(<span class="ruby-identifier">hex_string</span>)
+                        <span class="ruby-comment cmt"># split into an array of string pairs</span>
+                        <span class="ruby-comment cmt"># reverse the array and join back into a string</span>
+                        <span class="ruby-identifier">pad_string_to_byte_boundary</span>(<span class="ruby-identifier">hex_string</span>).<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/../</span>).<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

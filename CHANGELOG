@@ -1,0 +1,10 @@
+== 0.5 2007-11-29
+
+* 1 major enhancement:
+  * Rails controller integration (render :swx => @foo)
+
+* 1 minor bugfix:
+  * Fixed handling of nil values in hash to bytecode conversion
+
+* Miscellaneous:
+  * Added CHANGELOG, LICENSE, and README files

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate_data_bytecode (SwxAssembler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 54</span>
+                <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_data_bytecode</span>(<span class="ruby-identifier">data</span>)
+                        <span class="ruby-identifier">data_bytecode</span> = []
+                        
+                        <span class="ruby-comment cmt"># Add a flag to the beginning of the bytecode that tells Flash we're setting a variable (result)</span>
+                        <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">SET_VARIABLE</span>
+                                                
+                        <span class="ruby-comment cmt"># Convert the data (payload) to bytecode</span>
+                        <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">BytecodeConverter</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">data</span>)
+                        
+                        <span class="ruby-comment cmt"># Generate a push tag if the data was not an Array or a Hash</span>
+                        <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">generate_push_statement</span>(<span class="ruby-identifier">data_bytecode</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+                        
+                        <span class="ruby-comment cmt"># Add the 'result' variable name -- either</span>
+                        <span class="ruby-comment cmt"># using the constant table if in debug mode</span>
+                        <span class="ruby-comment cmt"># or as a regular string otherwise</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+                                <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-value str">'9602000800'</span>
+                        <span class="ruby-keyword kw">else</span>
+                                <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-value str">'96080000726573756C7400'</span>
+                        <span class="ruby-keyword kw">end</span>
+                        
+                        <span class="ruby-comment cmt"># (SWF bytecode is stored in reverse, so we reverse it here)</span>
+      <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>
+                <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
