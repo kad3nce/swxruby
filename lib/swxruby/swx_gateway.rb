@@ -82,7 +82,8 @@ class SwxGateway
 			end
         
       # assemble and return swx file 
-			SwxAssembler.write_swf(service_class_response, params[:debug], swx_config['compression_level'], params[:url], swx_config['allow_domain'])
+      debug_param = params[:debug] == 'true' ? true : false
+			SwxAssembler.write_swf(service_class_response, debug_param, swx_config['compression_level'], params[:url], swx_config['allow_domain'])
     end
     
     def json_to_ruby(arguments) #:nodoc:

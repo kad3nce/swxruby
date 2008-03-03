@@ -1,275 +1,285 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <div id="C00000020">
+<div class='banner'>
+  <span class="file-title-prefix">Class</span><br />SwxAssembler<br/>
+  In:
+<a href="#" onclick="jsHref('files/lib/swxruby/swx_assembler_rb.html');">lib/swxruby/swx_assembler.rb</a>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>Class: SwxAssembler</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <meta http-equiv="Content-Script-Type" content="text/javascript" />
-  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
-  <script type="text/javascript">
-  // <![CDATA[
+Parent:&nbsp;
+        <a href="#" onclick="jsHref('classes/Object.html');">
+Object
+         </a>
+</div>
+ <!-- banner header -->
 
-  function popupCode( url ) {
-    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-  }
-
-  function toggleCode( id ) {
-    if ( document.getElementById )
-      elem = document.getElementById( id );
-    else if ( document.all )
-      elem = eval( "document.all." + id );
-    else
-      return false;
-
-    elemStyle = elem.style;
-    
-    if ( elemStyle.display != "block" ) {
-      elemStyle.display = "block"
-    } else {
-      elemStyle.display = "none"
-    }
-
-    return true;
-  }
-  
-  // Make codeblocks hidden by default
-  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
-  
-  // ]]>
-  </script>
-
-</head>
-<body>
+  <div id="bodyContent" >
+      <div id="content">
 
 
 
-    <div id="classHeader">
-        <table class="header-table">
-        <tr class="top-aligned-row">
-          <td><strong>Class</strong></td>
-          <td class="class-name-in-header">SwxAssembler</td>
-        </tr>
-        <tr class="top-aligned-row">
-            <td><strong>In:</strong></td>
-            <td>
-                <a href="../files/lib/swxruby/swx_assembler_rb.html">
-                lib/swxruby/swx_assembler.rb
-                </a>
-        <br />
-            </td>
-        </tr>
 
-        <tr class="top-aligned-row">
-            <td><strong>Parent:</strong></td>
-            <td>
-                <a href="Object.html">
-                Object
-               </a>
-            </td>
-        </tr>
-        </table>
-    </div>
-  <!-- banner header -->
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="index.html?a=M000132&name=allow_domain_bytecode" >allow_domain_bytecode</a></li>
+  <li><a href="index.html?a=M000133&name=compress_swx_file" >compress_swx_file</a></li>
+  <li><a href="index.html?a=M000134&name=generate_data_bytecode" >generate_data_bytecode</a></li>
+  <li><a href="index.html?a=M000135&name=generate_swx_bytecode" >generate_swx_bytecode</a></li>
+  <li><a href="index.html?a=M000136&name=write_swf" >write_swf</a></li>
+  </ul>
 
-  <div id="bodyContent">
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li><a href="#" onclick="jsHref('classes/HelperMethods.html');">HelperMethods</a></li>
+</ul>
 
 
 
-  <div id="contextContent">
-
-
-
-   </div>
-
-    <div id="method-list">
-      <h3 class="section-bar">Methods</h3>
-
-      <div class="name-list">
-      <a href="#M000065">allow_domain_bytecode</a>&nbsp;&nbsp;
-      <a href="#M000066">compress_swx_file</a>&nbsp;&nbsp;
-      <a href="#M000067">generate_data_bytecode</a>&nbsp;&nbsp;
-      <a href="#M000068">generate_swx_bytecode</a>&nbsp;&nbsp;
-      <a href="#M000069">write_swf</a>&nbsp;&nbsp;
-      </div>
-    </div>
-
-  </div>
-
-
-    <!-- if includes -->
-    <div id="includes">
-      <h3 class="section-bar">Included Modules</h3>
-
-      <div id="includes-list">
-        <span class="include-name"><a href="HelperMethods.html">HelperMethods</a></span>
-      </div>
-    </div>
-
-    <div id="section">
-
-
-    <div id="constants-list">
-      <h3 class="section-bar">Constants</h3>
-
-      <div class="name-list">
-        <table summary="Constants">
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">UNCOMPRESSED_SWF</td>
-          <td>=</td>
-          <td class="context-item-value">'46'</td>
-          <td width="3em">&nbsp;</td>
-          <td class="context-item-desc">
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">UNCOMPRESSED_SWF</td>
+    <td>=</td>
+    <td class="attr-value">'46'</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
 Header - FCS (uncompressed), version Flash 6
 
 </td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">COMPRESSED_SWF</td>
-          <td>=</td>
-          <td class="context-item-value">'43'</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">HEADER</td>
-          <td>=</td>
-          <td class="context-item-value">'575306LLLLLLLL300A00A0000101004302FFFFFF'</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">NULL_TERMINATOR</td>
-          <td>=</td>
-          <td class="context-item-value">'00'</td>
-          <td width="3em">&nbsp;</td>
-          <td class="context-item-desc">
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">COMPRESSED_SWF</td>
+    <td>=</td>
+    <td class="attr-value">'43'</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">HEADER</td>
+    <td>=</td>
+    <td class="attr-value">'575306LLLLLLLL300A00A0000101004302FFFFFF'</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">NULL_TERMINATOR</td>
+    <td>=</td>
+    <td class="attr-value">'00'</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
 Misc
 
 </td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">ALLOW_DOMAIN</td>
-          <td>=</td>
-          <td class="context-item-value">'960900005F706172656E74001C960600005F75726C004E960D0007010000000053797374656D001C960A00007365637572697479004E960D0000616C6C6F77446F6D61696E005217'</td>
-          <td width="3em">&nbsp;</td>
-          <td class="context-item-desc">
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">ALLOW_DOMAIN</td>
+    <td>=</td>
+    <td class="attr-value">'960900005F706172656E74001C960600005F75726C004E960D0007010000000053797374656D001C960A00007365637572697479004E960D0000616C6C6F77446F6D61696E005217'</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
 Allow domain (*)
 
 </td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">SYSTEM_ALLOW_DOMAIN</td>
-          <td>=</td>
-          <td class="context-item-value">'07010000000053797374656D001C960A00007365637572697479004E960D0000616C6C6F77446F6D61696E005217'</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">DEBUG_START</td>
-          <td>=</td>
-          <td class="context-item-value">'883C000700726573756C74006C63004C6F63616C436F6E6E656374696F6E005F737778446562756767657200636F6E6E6563740064656275670073656E6400'</td>
-          <td width="3em">&nbsp;</td>
-          <td class="context-item-desc">
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">SYSTEM_ALLOW_DOMAIN</td>
+    <td>=</td>
+    <td class="attr-value">'07010000000053797374656D001C960A00007365637572697479004E960D0000616C6C6F77446F6D61696E005217'</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">DEBUG_START</td>
+    <td>=</td>
+    <td class="attr-value">'883C000700726573756C74006C63004C6F63616C436F6E6E656374696F6E005F737778446562756767657200636F6E6E6563740064656275670073656E6400'</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc">
 Debug SWX bytecode. Creates a local connection to the SWX Debugger
 front-end.)
 
 </td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">DEBUG_END</td>
-          <td>=</td>
-          <td class="context-item-value">'960D0008010600000000000000000802403C9609000803070100000008011C9602000804521796020008001C960500070100000042960B0008050803070300000008011C96020008065217'</td>
-        </tr>
-        </table>
-      </div>
-    </div>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">DEBUG_END</td>
+    <td>=</td>
+    <td class="attr-value">'960D0008010600000000000000000802403C9609000803070100000008011C9602000804521796020008001C960500070100000042960B0008050803070300000008011C96020008065217'</td>
+  </tr>
+  </table>
 
 
-
-      
-
-
-    <!-- if method_list -->
-    <div id="methods">
-      <h3 class="section-bar">Public Class methods</h3>
-
-      <div id="method-M000065" class="method-detail">
-        <a name="M000065"></a>
-
-        <div class="method-heading">
-          <a href="SwxAssembler.src/M000065.html" target="Code" class="method-signature"
-            onclick="popupCode('SwxAssembler.src/M000065.html');return false;">
-          <span class="method-name">allow_domain_bytecode</span><span class="method-args">(allow_domain_url = '')</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000066" class="method-detail">
-        <a name="M000066"></a>
-
-        <div class="method-heading">
-          <a href="SwxAssembler.src/M000066.html" target="Code" class="method-signature"
-            onclick="popupCode('SwxAssembler.src/M000066.html');return false;">
-          <span class="method-name">compress_swx_file</span><span class="method-args">(swx_file, compression_level)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000067" class="method-detail">
-        <a name="M000067"></a>
-
-        <div class="method-heading">
-          <a href="SwxAssembler.src/M000067.html" target="Code" class="method-signature"
-            onclick="popupCode('SwxAssembler.src/M000067.html');return false;">
-          <span class="method-name">generate_data_bytecode</span><span class="method-args">(data)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000068" class="method-detail">
-        <a name="M000068"></a>
-
-        <div class="method-heading">
-          <a href="SwxAssembler.src/M000068.html" target="Code" class="method-signature"
-            onclick="popupCode('SwxAssembler.src/M000068.html');return false;">
-          <span class="method-name">generate_swx_bytecode</span><span class="method-args">(data)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-      <div id="method-M000069" class="method-detail">
-        <a name="M000069"></a>
-
-        <div class="method-heading">
-          <a href="SwxAssembler.src/M000069.html" target="Code" class="method-signature"
-            onclick="popupCode('SwxAssembler.src/M000069.html');return false;">
-          <span class="method-name">write_swf</span><span class="method-args">(data, debug=false, compression_level=4, allow_domain_url='', allow_domain=true)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-
-    </div>
-
-
+<div class="sectiontitle">Public Class methods</div>
+<div id="M000132" class="method">
+  <div id="M000132_title" class="title">
+    <b>allow_domain_bytecode</b>(allow_domain_url = '')
   </div>
-
-
-<div id="validator-badges">
-  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000132_source')" id="l_M000132_source">show source</a> ]</p>
+  <div id="M000132_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 26</span>
+26:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">allow_domain_bytecode</span>(<span class="ruby-identifier">allow_domain_url</span> = <span class="ruby-value str">''</span>)
+27:                 <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">allow_domain_url</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">allow_domain_url</span>.<span class="ruby-identifier">empty?</span>)
+28:                         <span class="ruby-comment cmt"># No URL passed -- possibly called by legacy code, use the old _parent._url version.</span>
+29:         <span class="ruby-comment cmt"># error_log('[SWX] INFO: No URL passed from client. Defaulting to old behavior. You must call System.security.allowDomain on the dataHolder for cross domain data loading to work.');</span>
+30:                         <span class="ruby-constant">ALLOW_DOMAIN</span>
+31:                   <span class="ruby-keyword kw">else</span>
+32:                                 <span class="ruby-comment cmt"># Firefox/Flash (at least, and tested only on a Mac), sends </span>
+33:                                 <span class="ruby-comment cmt"># file:/// (three slashses) in the URI and that fails the validation</span>
+34:                                 <span class="ruby-comment cmt"># so replacing that with two slashes instead.</span>
+35:                                 <span class="ruby-identifier">allow_domain_url</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-value str">'///'</span>, <span class="ruby-value str">'//'</span>)
+36:                 <span class="ruby-comment cmt"># URL is passed, write that into the returned code</span>
+37:                 <span class="ruby-identifier">allow_domain_bytecode</span> = <span class="ruby-constant">BytecodeConverter</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">allow_domain_url</span>))
+38:                                 
+39:                 <span class="ruby-comment cmt"># The -13 is to accomodate the other elements being pushed to the </span>
+40:                 <span class="ruby-comment cmt"># stack in the hard-coded part of the bytecode.</span>
+41:                 <span class="ruby-identifier">allow_domain_bytecode_length_dec</span> = <span class="ruby-identifier">allow_domain_bytecode</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">/</span><span class="ruby-value">2</span> <span class="ruby-operator">+</span> <span class="ruby-value">13</span>
+42: 
+43:                 <span class="ruby-identifier">allow_domain_bytecode_length</span> = <span class="ruby-identifier">integer_to_hexadecimal</span>(<span class="ruby-identifier">allow_domain_bytecode_length_dec</span>, <span class="ruby-value">2</span>);
+44:                 <span class="ruby-identifier">allow_domain_bytecode</span> = <span class="ruby-value str">'96'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">allow_domain_bytecode_length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">allow_domain_bytecode</span> <span class="ruby-operator">+</span> <span class="ruby-constant">SYSTEM_ALLOW_DOMAIN</span>;
+45:                                 <span class="ruby-identifier">allow_domain_bytecode</span>
+46:                 <span class="ruby-keyword kw">end</span>
+47:         <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div id="M000133" class="method">
+  <div id="M000133_title" class="title">
+    <b>compress_swx_file</b>(swx_file, compression_level)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000133_source')" id="l_M000133_source">show source</a> ]</p>
+  <div id="M000133_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 49</span>
+49:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compress_swx_file</span>(<span class="ruby-identifier">swx_file</span>, <span class="ruby-identifier">compression_level</span>)
+50:             <span class="ruby-comment cmt"># The first eight bytes of a compressed SWF file are left uncompressed</span>
+51:       <span class="ruby-identifier">swx_file</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-value">8</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span>.<span class="ruby-identifier">deflate</span>(<span class="ruby-identifier">swx_file</span>, <span class="ruby-identifier">compression_level</span>)
+52:           <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div id="M000134" class="method">
+  <div id="M000134_title" class="title">
+    <b>generate_data_bytecode</b>(data)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000134_source')" id="l_M000134_source">show source</a> ]</p>
+  <div id="M000134_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 54</span>
+54:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_data_bytecode</span>(<span class="ruby-identifier">data</span>)
+55:                         <span class="ruby-identifier">data_bytecode</span> = []
+56:                         
+57:                         <span class="ruby-comment cmt"># Add a flag to the beginning of the bytecode that tells Flash we're setting a variable (result)</span>
+58:                         <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">SET_VARIABLE</span>
+59:                                                 
+60:                         <span class="ruby-comment cmt"># Convert the data (payload) to bytecode</span>
+61:                         <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">BytecodeConverter</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">data</span>)
+62:                         
+63:                         <span class="ruby-comment cmt"># Generate a push tag if the data was not an Array or a Hash</span>
+64:                         <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">generate_push_statement</span>(<span class="ruby-identifier">data_bytecode</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+65:                         
+66:                         <span class="ruby-comment cmt"># Add the 'result' variable name -- either</span>
+67:                         <span class="ruby-comment cmt"># using the constant table if in debug mode</span>
+68:                         <span class="ruby-comment cmt"># or as a regular string otherwise</span>
+69:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+70:                                 <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-value str">'9602000800'</span>
+71:                         <span class="ruby-keyword kw">else</span>
+72:                                 <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">push</span> <span class="ruby-value str">'96080000726573756C7400'</span>
+73:                         <span class="ruby-keyword kw">end</span>
+74:                         
+75:                         <span class="ruby-comment cmt"># (SWF bytecode is stored in reverse, so we reverse it here)</span>
+76:       <span class="ruby-identifier">data_bytecode</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">join</span>
+77:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div id="M000135" class="method">
+  <div id="M000135_title" class="title">
+    <b>generate_swx_bytecode</b>(data)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000135_source')" id="l_M000135_source">show source</a> ]</p>
+  <div id="M000135_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 79</span>
+ 79:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_swx_bytecode</span>(<span class="ruby-identifier">data</span>)
+ 80:             <span class="ruby-comment cmt"># Create the DoAction tag</span>
+ 81:                         <span class="ruby-identifier">do_action_block</span> = []
+ 82:                         
+ 83:                         <span class="ruby-comment cmt"># Wrap the data bytecode in debug flags if debugging is turned on</span>
+ 84:                         <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">DEBUG_START</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+ 85:                         
+ 86:                         <span class="ruby-comment cmt"># Generate bytecode for the data (payload)</span>
+ 87:                         <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">generate_data_bytecode</span>(<span class="ruby-identifier">data</span>)
+ 88:       
+ 89:                         <span class="ruby-comment cmt"># Allow domain? If so add allow domain statement to the SWF</span>
+ 90:       <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@allow_domain</span>)
+ 91:         <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">allow_domain_bytecode</span>(<span class="ruby-ivar">@allow_domain_url</span>)
+ 92:       <span class="ruby-keyword kw">end</span>
+ 93:                         
+ 94:                         <span class="ruby-comment cmt"># Wrap the data bytecode in debug flags if debugging is turned on</span>
+ 95:                         <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">push</span> <span class="ruby-constant">DEBUG_END</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@debug</span>
+ 96: 
+ 97:       <span class="ruby-comment cmt"># Calculate the size of the do_action block</span>
+ 98:                         <span class="ruby-identifier">do_action_block_size_in_bytes</span> = <span class="ruby-identifier">string_length_in_bytes_hex</span>(<span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">join</span>, <span class="ruby-value">4</span>)
+ 99:                         <span class="ruby-comment cmt"># Add the appropriate flags to the do_action block and concat the finished do_action block into a string</span>
+100:                         <span class="ruby-identifier">do_action_block_string</span> = <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">DO_ACTION</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">do_action_block_size_in_bytes</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">do_action_block</span>.<span class="ruby-identifier">join</span>
+101: 
+102:                         <span class="ruby-comment cmt"># Create the rest of the SWF</span>
+103:                         <span class="ruby-identifier">header_type</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@compression_level</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span> <span class="ruby-constant">COMPRESSED_SWF</span> <span class="ruby-keyword kw">else</span> <span class="ruby-constant">UNCOMPRESSED_SWF</span> <span class="ruby-keyword kw">end</span>
+104: 
+105:                         <span class="ruby-identifier">swf</span> = <span class="ruby-identifier">header_type</span> <span class="ruby-operator">+</span> <span class="ruby-constant">HEADER</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">do_action_block_string</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">SHOW_FRAME</span> <span class="ruby-operator">+</span> <span class="ruby-constant">ActionCodes</span><span class="ruby-operator">::</span><span class="ruby-constant">END_SWF</span>
+106:                         <span class="ruby-identifier">swf_size_in_bytes</span> = <span class="ruby-identifier">string_length_in_bytes_hex</span>(<span class="ruby-identifier">swf</span>, <span class="ruby-value">4</span>)
+107:            
+108:                         <span class="ruby-comment cmt"># Replace length placeholder (from HEADER constant) with actual bytecode length</span>
+109:                         <span class="ruby-identifier">swf</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-value str">'LLLLLLLL'</span>, <span class="ruby-identifier">swf_size_in_bytes</span>)
+110:           <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div id="M000136" class="method">
+  <div id="M000136_title" class="title">
+    <b>write_swf</b>(data, debug=false, compression_level=4, allow_domain_url='', allow_domain=true)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000136_source')" id="l_M000136_source">show source</a> ]</p>
+  <div id="M000136_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/swxruby/swx_assembler.rb, line 112</span>
+112:                 <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_swf</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">debug</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">compression_level</span>=<span class="ruby-value">4</span>, <span class="ruby-identifier">allow_domain_url</span>=<span class="ruby-value str">''</span>, <span class="ruby-identifier">allow_domain</span>=<span class="ruby-keyword kw">true</span>)
+113:                   <span class="ruby-comment cmt"># Set up SwfAssembler state</span>
+114:                   <span class="ruby-ivar">@debug</span> = <span class="ruby-identifier">debug</span>
+115:                   <span class="ruby-ivar">@compression_level</span> = <span class="ruby-identifier">compression_level</span>
+116:                   <span class="ruby-ivar">@allow_domain_url</span> = <span class="ruby-identifier">allow_domain_url</span>
+117:                         <span class="ruby-ivar">@allow_domain</span> = <span class="ruby-identifier">allow_domain</span>
+118: 
+119:       <span class="ruby-identifier">swx_bytecode</span> = <span class="ruby-identifier">generate_swx_bytecode</span>(<span class="ruby-identifier">data</span>)
+120: 
+121:                         <span class="ruby-comment cmt"># Convert the bytecode string to ASCII file format</span>
+122:       <span class="ruby-identifier">swx_file</span> = <span class="ruby-identifier">swx_bytecode</span>.<span class="ruby-identifier">hex_to_ascii</span>
+123: 
+124:       <span class="ruby-comment cmt"># Compress the file if compression is turned on</span>
+125:       <span class="ruby-identifier">swx_file</span> = <span class="ruby-identifier">compress_swx_file</span>(<span class="ruby-identifier">swx_file</span>, <span class="ruby-identifier">compression_level</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">compression_level</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+126: 
+127:       <span class="ruby-comment cmt"># ====================================</span>
+128:       <span class="ruby-comment cmt"># = TODO: Remove this before release =</span>
+129:       <span class="ruby-comment cmt"># ====================================</span>
+130:       <span class="ruby-comment cmt"># Write the file (for manual 'loadMovie' testing in Flash)</span>
+131:       <span class="ruby-comment cmt"># File.open('/Users/Jed/Development/Libraries/rSWX/testing/flash/rswx_data.swx', 'w+') do |file|</span>
+132:       <span class="ruby-comment cmt">#   file &lt;&lt; swx_file</span>
+133:       <span class="ruby-comment cmt"># end      </span>
+134: 
+135:       <span class="ruby-identifier">swx_file</span>
+136:                 <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
 </div>
 
-</body>
-</html>
+  </div>

@@ -8,3 +8,5 @@ tmp/**/*
 doc/api
 doc/app
 doc/plugins
+doc
+doc/*

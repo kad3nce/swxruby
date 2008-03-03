@@ -1,51 +1,3 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <title>File: hoe.rb</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <meta http-equiv="Content-Script-Type" content="text/javascript" />
-  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
-  <script type="text/javascript">
-  // <![CDATA[
-
-  function popupCode( url ) {
-    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
-  }
-
-  function toggleCode( id ) {
-    if ( document.getElementById )
-      elem = document.getElementById( id );
-    else if ( document.all )
-      elem = eval( "document.all." + id );
-    else
-      return false;
-
-    elemStyle = elem.style;
-    
-    if ( elemStyle.display != "block" ) {
-      elemStyle.display = "block"
-    } else {
-      elemStyle.display = "none"
-    }
-
-    return true;
-  }
-  
-  // Make codeblocks hidden by default
-  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
-  
-  // ]]>
-  </script>
-
-</head>
-<body>
-
-
-
   <div id="fileHeader">
     <h1>hoe.rb</h1>
     <table class="header-table">
@@ -60,155 +12,80 @@
     </tr>
     </table>
   </div>
-  <!-- banner header -->
+ <!-- banner header -->
 
-  <div id="bodyContent">
+  <div id="bodyContent" >
+    <h2>Source Code</h2>
+    <pre>require 'swxruby/version'
+
+AUTHOR = 'Jed Hurt'  # can also be an array of Authors
+EMAIL = &quot;jed.hurt@gmail.com&quot;
+DESCRIPTION = &quot;The Ruby implementation of SWX RPC&quot;
+GEM_NAME = 'swxruby' # what ppl will type to install your gem
+RUBYFORGE_PROJECT = 'swxruby' # The unix name for your project
+HOMEPATH = &quot;http://swxruby.org&quot;
+DOWNLOAD_PATH = &quot;http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}&quot;
+
+@config_file = &quot;~/.rubyforge/user-config.yml&quot;
+@config = nil
+RUBYFORGE_USERNAME = &quot;meekish&quot;
+def rubyforge_username
+  unless @config
+    begin
+      @config = YAML.load(File.read(File.expand_path(@config_file)))
+    rescue
+      puts &lt;&lt;-EOS
+ERROR: No rubyforge config file found: #{@config_file}
+Run 'rubyforge setup' to prepare your env for access to Rubyforge
+ - See http://newgem.rubyforge.org/rubyforge.html for more details
+      EOS
+      exit
+    end
+  end
+  RUBYFORGE_USERNAME.replace @config[&quot;username&quot;]
+end
 
 
+REV = nil 
+# UNCOMMENT IF REQUIRED: 
+# REV = `svn info`.each {|line| if line =~ /^Revision:/ then k,v = line.split(': '); break v.chomp; else next; end} rescue nil
+VERS = Swxruby::VERSION::STRING + (REV ? &quot;.#{REV}&quot; : &quot;&quot;)
+RDOC_OPTS = ['--quiet', '--title', 'SWX Ruby Documentation',
+    &quot;--opname&quot;, &quot;index.html&quot;,
+    &quot;--line-numbers&quot;, 
+    &quot;--main&quot;, &quot;README&quot;,
+    &quot;--inline-source&quot;,
+    &quot;--template&quot;, &quot;jamis&quot;]
 
-  <div id="contextContent">
+class Hoe
+  def extra_deps 
+    @extra_deps.reject! { |x| Array(x).first == 'hoe' } 
+    @extra_deps
+  end 
+end
 
+# Generate all the Rake tasks
+# Run 'rake -T' to see list of generated tasks (from gem root directory)
+hoe = Hoe.new(GEM_NAME, VERS) do |p|
+  p.author = AUTHOR 
+  p.description = DESCRIPTION
+  p.email = EMAIL
+  p.summary = DESCRIPTION
+  p.url = HOMEPATH
+  p.rubyforge_name = RUBYFORGE_PROJECT if RUBYFORGE_PROJECT
+  p.test_globs = [&quot;test/**/test_*.rb&quot;]
+  p.clean_globs |= ['**/.*.sw?', '*.gem', '.config', '**/.DS_Store']  #An array of file patterns to delete on clean.
+  
+  # == Optional
+  p.changes = p.paragraphs_of(&quot;CHANGELOG&quot;, 0..1).join(&quot;\n\n&quot;)
+  p.extra_deps = [ ['json_pure', '&gt;= 1.1.2'] ]     # An array of rubygem dependencies [name, version], e.g. [ ['active_support', '&gt;= 1.3.1'] ]
+  
+  #p.spec_extras = {}    # A hash of extra values to set in the gemspec.
+  
+end
 
-    <div id="requires-list">
-      <h3 class="section-bar">Required files</h3>
-
-      <div class="name-list">
-      swxruby/version&nbsp;&nbsp;
-      </div>
+CHANGES = hoe.paragraphs_of('CHANGELOG', 0..1).join(&quot;\\n\\n&quot;)
+PATH    = (RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : &quot;#{RUBYFORGE_PROJECT}/#{GEM_NAME}&quot;
+hoe.remote_rdoc_dir = File.join(PATH.gsub(/^#{RUBYFORGE_PROJECT}\/?/,''), 'rdoc')
+hoe.rsync_args = '-av --delete --ignore-errors'</pre>
     </div>
-
-   </div>
-
-    <div id="method-list">
-      <h3 class="section-bar">Methods</h3>
-
-      <div class="name-list">
-      <a href="#M000001">rubyforge_username</a>&nbsp;&nbsp;
-      </div>
-    </div>
-
-  </div>
-
-
-    <!-- if includes -->
-
-    <div id="section">
-
-
-    <div id="constants-list">
-      <h3 class="section-bar">Constants</h3>
-
-      <div class="name-list">
-        <table summary="Constants">
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">AUTHOR</td>
-          <td>=</td>
-          <td class="context-item-value">'Jed Hurt'</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">EMAIL</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;jed.hurt@gmail.com&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">DESCRIPTION</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;The Ruby implementation of SWX RPC&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">GEM_NAME</td>
-          <td>=</td>
-          <td class="context-item-value">'swxruby'</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">RUBYFORGE_PROJECT</td>
-          <td>=</td>
-          <td class="context-item-value">'swxruby'</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">HOMEPATH</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;http://swxruby.org&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">DOWNLOAD_PATH</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;http://rubyforge.org/projects/#{RUBYFORGE_PROJECT}&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">RUBYFORGE_USERNAME</td>
-          <td>=</td>
-          <td class="context-item-value">&quot;meekish&quot;</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">REV</td>
-          <td>=</td>
-          <td class="context-item-value">nil</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">VERS</td>
-          <td>=</td>
-          <td class="context-item-value">Swxruby::VERSION::STRING + (REV ? &quot;.#{REV}&quot; : &quot;&quot;)</td>
-          <td width="3em">&nbsp;</td>
-          <td class="context-item-desc">
-UNCOMMENT IF REQUIRED: REV = `svn info`.each {|line| if line =~
-/^Revision:/ then k,v = line.split(&#8217;: &#8217;); break v.chomp; else
-next; end} rescue nil
-
-</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">RDOC_OPTS</td>
-          <td>=</td>
-          <td class="context-item-value">['--quiet', '--title', 'SWX Ruby Documentation',     &quot;--opname&quot;, &quot;index.html&quot;,     &quot;--line-numbers&quot;,      &quot;--main&quot;, &quot;README&quot;,     &quot;--inline-source&quot;,     &quot;--template&quot;, &quot;jamis&quot;]</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">CHANGES</td>
-          <td>=</td>
-          <td class="context-item-value">hoe.paragraphs_of('CHANGELOG', 0..1).join(&quot;\\n\\n&quot;)</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">PATH</td>
-          <td>=</td>
-          <td class="context-item-value">(RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : &quot;#{RUBYFORGE_PROJECT}/#{GEM_NAME}&quot;</td>
-        </tr>
-        </table>
-      </div>
-    </div>
-
-
-
-      
-
-
-    <!-- if method_list -->
-    <div id="methods">
-      <h3 class="section-bar">Public Instance methods</h3>
-
-      <div id="method-M000001" class="method-detail">
-        <a name="M000001"></a>
-
-        <div class="method-heading">
-          <a href="hoe_rb.src/M000001.html" target="Code" class="method-signature"
-            onclick="popupCode('hoe_rb.src/M000001.html');return false;">
-          <span class="method-name">rubyforge_username</span><span class="method-args">()</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-        </div>
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-
-<div id="validator-badges">
-  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
-</div>
-
-</body>
-</html>

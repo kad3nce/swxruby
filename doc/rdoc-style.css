@@ -1,208 +1,434 @@
+html, body {
+	padding:10px 0px 0px 5px;
+	margin: 0px;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif;
+	font-size: 14px;
+}
 
 body {
-    font-family: Verdana,Arial,Helvetica,sans-serif;
-    font-size:   90%;
-    margin: 0;
-    margin-left: 40px;
-    padding: 0;
-    background: white;
+  background: #000000 url(http://merbivore.com/img/header_waves.gif) repeat-x scroll center top;
 }
 
-h1,h2,h3,h4 { margin: 0; color: #efefef; background: transparent; }
-h1 { font-size: 150%; }
-h2,h3,h4 { margin-top: 1em; }
+td, p {
+  background: #FFF;
+  color: #000;
+  margin: 0px;
+  font-size: small;
+  line-height: 17px;
+  margin-bottom 12px;
+}
 
-a { background: #eef; color: #039; text-decoration: none; }
-a:hover { background: #039; color: #eef; }
+#floater {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
 
-/* Override the base stylesheet's Anchor inside a table cell */
-td > a {
-  background: transparent;
-  color: #039;
+#floater strong {
+  color: white;
+}
+
+#floater a {
+  color: black;
+}
+
+#floater a:hover {
+  background-color: transparent;
+}
+
+
+/*holds the whole searching/drill down stuff */
+#listFrame{
+	float:left;
+	padding: 2px;
+	width: 350px;
+	background-color: #868686;
+	border: 1px solid #999;
+	border-right: none;
+}
+
+#browserBar{
+	height: 25px;
+	padding:11px 0px 0px 0px;
+	margin:0px;
+	background-color: #868686;	
+  border-top: 1px solid #999;
+	color: white;
+}
+
+#browserBar a{
+	text-decoration: none;
+}
+
+.button{
+	text-decoration: none;
+	padding:3px 8px 3px 8px;
+	border: 1px solid #66a;
+	background-color: #ccf;
+	color: #66a;
+}
+
+.buttonInactive{
+	text-decoration: none;
+	padding:3px 8px 3px 8px;
+	border: 1px solid #999;
+	background-color: #ccc;
+	color: #999;
+}
+
+.miniButton{
+	text-decoration: none;
+	padding:3px 2px 3px 2px;
+	border: 1px solid #66a;
+	background-color: #ccf;
+	color: #66a;
+}
+
+.miniButtonInactive{
+	text-decoration: none;
+	padding:3px 2px 3px 2px;
+	border: 1px solid #999;
+	background-color: #ccc;
+	color: #999;
+}
+
+#blowOutListBox{
+	position: absolute;
+	top: 63px;
+	left: 399px;
+	border: 1px solid #999;
+	padding: 0px;
+	margin: 0px;
+	z-index: 1000;
+	background-color: #ccf;
+	color: #66a;
+}
+
+#blowOutListBox ul{
+	list-style-type:none;
+	padding: 0px;
+	margin: 0px;
+}
+
+#blowOutListBox ul li{
+	padding: 3px;
+	margin: 0px;
+	line-height: 1.1em;
+	
+}
+
+#blowOutListBox ul li a{
+	text-decoration: none;
+	padding: 3px;
+}
+#blowOutListBox ul li a:hover{
+	background-color: #ddf;
+}
+
+/*holds the content for browsing etc... also is the target of method/class/file name clicks */
+#rdocContent{
+	height: 600px;
+	background-color: #fff;
+	border: 1px solid #999;
+	border-left: 0px;
+	padding:5px;
+	overflow: auto;
+}
+
+/*the grouping for methods,files,class,all... i.e. the tabs */
+ul#groupType{
+	list-style-type: none;
+	padding: 0px;
+	padding-left: 5px;
+	margin: 0px;
+}
+
+ul#groupType li{
+  color: white;
+	display:inline;
+	padding: 5px 5px 0px 5px;
+	cursor: pointer;
+}
+
+ul#groupType li#loadingStatus{
+	margin: 3px;
+	border: 0px;
+	padding: 3px 3px 6px 3px;
+	color: #666;
+}
+
+ul#groupType li.activeLi{
+  border: 1px solid #999;
+	border-bottom: 0px;
+	background-color: #868686;
+	font-weight: bold;
+	padding-bottom: 1px;
+}
+
+#listSearch{
+	height: 25px;
+	padding: 3px;
+}
+
+#listSearch input[type=text]{
+	width: 340px;
+	font-size: 1.2em;
+}
+
+#listScroller{
+	width: 342px;
+	height: 700px;
+	margin: 3px;
+	background-color: #fcfcfc;
+	border: 1px solid #999;
+	overflow: auto;
+}
+
+#listScroller ul{
+	width: 500px;
+	padding:0px;
+	margin:0px;
+	list-style: none;
+}
+
+#listScroller li{
+	padding: 0px;
+	margin: 0px;
+	display: block;
+	line-height: 1.1em;
+}
+
+a, h1 a, h2 a, .sectiontitle a, #listScroller a{
+  color: #11B716;
+  font-weight: bold;
   text-decoration: none;
+	padding: 0px 1px 1px 1px;
+	margin: 3px;
+	font-weight: bold;
 }
 
-/* and inside a section title */
-.section-title > a {
-  background: transparent;
-  color: #eee;
-  text-decoration: none;
+a:hover, h1 a:hover, h2 a:hover, .sectiontitle a:hover, #listScroller a:hover{
+	background-color: #22D716;
+	color: black;
 }
 
-/* === Structural elements =================================== */
-
-div#index {
-    margin: 0;
-    margin-left: -40px;
-    padding: 0;
-    font-size: 90%;
+#browserBar a, .banner a {
+  color: #D7FF00;
 }
 
-
-div#index a {
-    margin-left: 0.7em;
+#browserBar a:hover, .banner a:hover {
+  background-color: #D7FF00;
+  color: #000;
 }
 
-div#index .section-bar {
-   margin-left: 0px;
-   padding-left: 0.7em;
-   background: #ccc;
-   font-size: small;
+#listScroller a.activeA {
+	background-color: #22D716;
+	color: black ;
+	border: 1px solid #ccc;
+	padding: 0px 1px 1px 1px; 
 }
 
-
-div#classHeader, div#fileHeader {
-    width: auto;
-    color: white;
-    padding: 0.5em 1.5em 0.5em 1.5em;
-    margin: 0;
-    margin-left: -40px;
-    border-bottom: 3px solid #006;
+#listScroller small{
+	color: #999;
 }
 
-div#classHeader a, div#fileHeader a {
-    background: inherit;
-    color: white;
+.activeTitle{
+  font-family: monospace;
+  font-size: large;
+  border-bottom: 1px dashed black;
+  margin-bottom: 0.3em;
+  padding-bottom: 0.1em;
+  background-color: #ffc;
 }
 
-div#classHeader td, div#fileHeader td {
-    background: inherit;
-    color: white;
+.activeMethod{
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
 }
 
 
-div#fileHeader {
-    background: #057;
+.activeMethod .title {
+  font-family: monospace;
+  font-size: large;
+  border-bottom: 1px dashed black;
+  margin-bottom: 0.3em;
+  padding-bottom: 0.1em;
+  background-color: #ffa;
 }
 
-div#classHeader {
-    background: #048;
+.activeMethod .description, .activeMethod .sourcecode {
+  margin-left: 1em;
 }
 
+.activeMethod .sourcecode p.source-link {
+  text-indent: 0em;
+  margin-top: 0.5em;
+}
 
-.class-name-in-header {
-  font-size:  180%;
+.activeMethod .aka {
+  margin-top: 0.3em;
+  margin-left: 1em;
+  font-style: italic;
+  text-indent: 2em;
+}
+
+#content {
+  margin: 0.5em;
+}
+
+#description p {
+  margin-bottom: 0.5em;
+}
+
+.sectiontitle {
+  color: black;
+  font-size: 28px;
+  margin: 20px 0px;
+  border-bottom: 2px solid #CCCCCC;
+  
+/*  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  padding-left: 2em;
+  background: #005;
+  color: #FFF;
+  font-weight: bold;
+  border: 1px dotted black;*/
+}
+
+.attr-rw {
+  padding-left: 1em;
+  padding-right: 1em;
+  text-align: center;
+  color: #055;
+}
+
+.attr-name {
   font-weight: bold;
 }
 
-
-div#bodyContent {
-    padding: 0 1.5em 0 1.5em;
+.attr-desc {
 }
 
-div#description {
-    padding: 0.5em 1.5em;
-    background: #efefef;
-    border: 1px dotted #999;
+.attr-value {
+  font-family: monospace;
 }
 
-div#description h1,h2,h3,h4,h5,h6 {
-    color: #125;;
-    background: transparent;
+.file-title-prefix {
+  font-size: large;
 }
 
-div#validator-badges {
-    text-align: center;
-}
-div#validator-badges img { border: 0; }
-
-div#copyright {
-    color: #333;
-    background: #efefef;
-    font: 0.75em sans-serif;
-    margin-top: 5em;
-    margin-bottom: 0;
-    padding: 0.5em 2em;
+.file-title {
+  font-size: large;
+  font-weight: bold;
+  background: #005;
+  color: #FFF;
 }
 
-
-/* === Classes =================================== */
-
-table.header-table {
-    color: white;
-    font-size: small;
+.banner {
+  background: #888;
+  color: #FFF;
+/*  border: 1px solid black;*/
+  padding: 1em;
 }
 
-.type-note {
-    font-size: small;
-    color: #DEDEDE;
+.banner td {
+  background: transparent;
+  color: #FFF;
 }
 
-.xxsection-bar {
-    background: #eee;
-    color: #333;
-    padding: 3px;
+.dyn-source {
+  display: none;
+  color: #000;
+  border: 0px;
+  border-left: 1px dotted black;
+  border-top: 1px dotted black;
+  margin: 0em;
+  padding: 0em;
 }
 
-.section-bar {
-   color: #333;
-   border-bottom: 1px solid #999;
-    margin-left: -20px;
+.dyn-source .cmt {
+  color: #00F;
+  font-style: italic;
+}
+
+.dyn-source .kw {
+  color: #070;
+  font-weight: bold;
+}
+
+.method {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+
+.description pre {
+  font-family:"Courier",serif;
+  font-size: 12px;
+  line-height: 18px;
+  color: white;
+  padding: 12px;
+  background: #222;
+  overflow: scroll;
+}
+
+.method .title {
+  color: #7AAD00;
+  font-size: 22px;
+  margin: 10px 0px;
+  
+/*  font-size: large;
+  border-bottom: 1px dashed black;
+  margin: 0.3em;
+  padding: 0.2em;
+*/}
+
+.method .description, .method .sourcecode {
+  margin-left: 1em;
+}
+
+.description p, .sourcecode p {
+  margin-bottom: 0.5em;
+}
+
+.method .sourcecode p.source-link {
+  text-indent: 0em;
+  margin-top: 0.5em;
+}
+
+.method .aka {
+  margin-top: 0.3em;
+  margin-left: 1em;
+  font-style: italic;
+  text-indent: 2em;
+}
+
+h1 {
+  padding: 1em;
+  font-size: x-large;
+}
+
+h2 {
+  padding: 0.5em 1em 0.5em 1em;
+  font-size: large;
 }
 
 
-.section-title {
-    background: #79a;
-    color: #eee;
-    padding: 3px;
-    margin-top: 2em;
-    margin-left: -30px;
-    border: 1px solid #999;
+h1, h2, h3, h4, h5, h6 {
+  color: white;
+  background-color: #868686;
 }
 
-.top-aligned-row {  vertical-align: top }
-.bottom-aligned-row { vertical-align: bottom }
-
-/* --- Context section classes ----------------------- */
-
-.context-row { }
-.context-item-name { font-family: monospace; font-weight: bold; color: black; }
-.context-item-value { font-size: small; color: #448; }
-.context-item-desc { color: #333; padding-left: 2em; }
-
-/* --- Method classes -------------------------- */
-.method-detail {
-    background: #efefef;
-    padding: 0;
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-    border: 1px dotted #ccc;
-}
-.method-heading {
-  color: black;
-  background: #ccc;
-  border-bottom: 1px solid #666;
-  padding: 0.2em 0.5em 0 0.5em;
-}
-.method-signature { color: black; background: inherit; }
-.method-name { font-weight: bold; }
-.method-args { font-style: italic; }
-.method-description { padding: 0 0.5em 0 0.5em; }
-
-/* --- Source code sections -------------------- */
-
-a.source-toggle { font-size: 90%; }
-div.method-source-code {
-    background: #262626;
-    color: #ffdead;
-    margin: 1em;
-    padding: 0.5em;
-    border: 1px dashed #999;
-    overflow: hidden;
+h3, h4, h5, h6 {
+  padding: 0.2em 1em 0.2em 1em;
+  font-weight: bold;
 }
 
-div.method-source-code pre { color: #ffdead; overflow: hidden; }
-
-/* --- Ruby keyword styles --------------------- */
-
-.standalone-code { background: #221111; color: #ffdead; overflow: hidden; }
-
-.ruby-constant  { color: #7fffd4; background: transparent; }
-.ruby-keyword { color: #00ffff; background: transparent; }
-.ruby-ivar    { color: #eedd82; background: transparent; }
-.ruby-operator  { color: #00ffee; background: transparent; }
-.ruby-identifier { color: #ffdead; background: transparent; }
-.ruby-node    { color: #ffa07a; background: transparent; }
-.ruby-comment { color: #b22222; font-weight: bold; background: transparent; }
-.ruby-regexp  { color: #ffa07a; background: transparent; }
-.ruby-value   { color: #7fffd4; background: transparent; }
+.sourcecode > pre {
+  padding: 0px;
+  margin: 0px;
+  border: 1px dotted black;
+  background: #FFE;
+}

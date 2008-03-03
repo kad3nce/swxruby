@@ -72,7 +72,7 @@ describe 'SwxGateway#process' do
 		hello_world.should_receive(:send).with('just_say_the_words').and_return('Hello World!')
 		SwxServiceClasses::HelloWorld.should_receive(:new).and_return(hello_world)
 		
-		SwxAssembler.should_receive(:write_swf).with('Hello World!', nil, 4, nil, true)
+		SwxAssembler.should_receive(:write_swf).with('Hello World!', false, 4, nil, true)
 		
 	  SwxGateway.process(:serviceClass => 'HelloWorld', :method => 'justSayTheWords')
 	end
@@ -83,7 +83,7 @@ describe 'SwxGateway#process' do
 		hello_world.should_receive(:send).with('just_say_the_words').and_return('Hello World!')
 		SwxServiceClasses::HelloWorld.should_receive(:new).and_return(hello_world)
 		
-		SwxAssembler.should_receive(:write_swf).with('Hello World!', nil, 4, nil, true)
+		SwxAssembler.should_receive(:write_swf).with('Hello World!', false, 4, nil, true)
 		
 	  SwxGateway.process(:serviceClass => 'HelloWorld', :method => 'justSayTheWords', :args => '[null]')
 	end
@@ -95,7 +95,7 @@ describe 'SwxGateway#process' do
 		hello_world.should_receive(:send).with('just_say_the_words').and_return('Hello World!')
 		SwxServiceClasses::HelloWorld.should_receive(:new).and_return(hello_world)
 		
-		SwxAssembler.should_receive(:write_swf).with('Hello World!', nil, 4, nil, true)
+		SwxAssembler.should_receive(:write_swf).with('Hello World!', false, 4, nil, true)
 		
 	  SwxGateway.process(:serviceClass => 'HelloWorld', :method => 'justSayTheWords', :args => '[null]')
 	end
@@ -105,14 +105,25 @@ describe 'SwxGateway#process' do
 		arithmetic.should_receive(:send).with('addition', 1, 2).and_return(3)
 		SwxServiceClasses::Arithmetic.should_receive(:new).and_return(arithmetic)
 		
-		SwxAssembler.should_receive(:write_swf).with(3, nil, 4, nil, true)
+		SwxAssembler.should_receive(:write_swf).with(3, false, 4, nil, true)
 		
 		SwxGateway.process(:serviceClass  => 'Arithmetic', :method  => 'addition', :args => '[1, 2]')
 	end
 	
-	it 'should convert a "true" string in the debug param to a boolean'
+	it 'should convert a "true" string in the debug param to a boolean' do
+	  SwxAssembler.should_receive(:write_swf).with(3, true, 4, nil, true)
+	  SwxGateway.process(:serviceClass  => 'Arithmetic', :method  => 'addition', :args => '[1, 2]', :debug => 'true')
+	end
 	
-	it 'should convert a "false" string in the debug param to a boolean'
+	it 'should convert a "false" string in the debug param to a boolean' do
+	  SwxAssembler.should_receive(:write_swf).with(3, false, 4, nil, true)
+	  SwxGateway.process(:serviceClass  => 'Arithmetic', :method  => 'addition', :args => '[1, 2]', :debug => 'false')
+	end
+	
+	it 'should default debugging to false if no debug param is supplied' do
+	  SwxAssembler.should_receive(:write_swf).with(3, false, 4, nil, true)
+	  SwxGateway.process(:serviceClass  => 'Arithmetic', :method  => 'addition', :args => '[1, 2]')
+	end
 	
 	it 'should raise a NoMethodError when attempting to call methods that the service class inherited from Object' do
 		lambda { SwxGateway.process(:serviceClass  => 'TestDataTypes', :method  => 'instance_eval', :args => '["@foo"]') }.should raise_error(NoMethodError)
@@ -127,7 +138,7 @@ describe 'SwxGateway#process' do
 		arithmetic.should_receive(:send).with('addition', 1, nil).and_return(3)
 		SwxServiceClasses::Arithmetic.should_receive(:new).and_return(arithmetic)
 		
-		SwxAssembler.should_receive(:write_swf).with(3, nil, 4, nil, true)
+		SwxAssembler.should_receive(:write_swf).with(3, false, 4, nil, true)
 		
 		SwxGateway.process(:serviceClass  => 'Arithmetic', :method  => 'addition', :args => '[1, "null"]')
 	  
