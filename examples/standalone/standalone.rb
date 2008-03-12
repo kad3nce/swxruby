@@ -28,9 +28,9 @@ end
 # ====================
 # = Merb Application =
 # ====================
-Merb::Router.prepare { |r| r.match('/').to(:controller => 'swx_ruby', :action =>'gateway') }
+Merb::Router.prepare { |r| r.match('/').to(:controller => 'swx_ruby_controller', :action =>'gateway') }
 
-class SwxRuby < Merb::Controller
+class SwxRubyController < Merb::Controller
   def gateway
     send_data(SwxGateway.process(params), :filename => 'data.swf', :type => 'application/swf')
   end
