@@ -1,3 +1,8 @@
+== 0.7.1 2008-03-12
+
+* 1 major bugfix:
+  * Refactored the Rails render decorator so that it doesn't break RSpec controller specs
+
 == 0.7 2008-03-11
 
 * 1 major enhancement:

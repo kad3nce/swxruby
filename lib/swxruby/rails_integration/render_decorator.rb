@@ -2,7 +2,8 @@ require 'swx_assembler'
 require 'swx_gateway'
 
 ActionController::Base.class_eval do
-	def render_with_swx(options = nil, &block)
+	def render_with_swx(*args, &block)
+	  options = args.first
 		if options.is_a?(Hash) && options.keys.include?(:swx)
 			swf_bytecode = SwxAssembler.write_swf(
 								       options[:swx], 
@@ -13,7 +14,7 @@ ActionController::Base.class_eval do
 										 )
 			send_data(swf_bytecode, :type => 'application/swf', :filename => 'data.swf')
 		else
-			render_without_swx(options, &block)
+			render_without_swx(*args, &block)
 		end
 	end
 	alias_method_chain :render, :swx
