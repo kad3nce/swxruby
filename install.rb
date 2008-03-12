@@ -6,7 +6,8 @@ def gsub_file(relative_destination, regexp, *args, &block)
 end
 
 SWX_RUBY_ROOT ||= File.expand_path(File.dirname(__FILE__))
-@getting_started = IO.read(File.join(SWX_RUBY_ROOT, 'README.txt'))
+readme = IO.readlines(File.join(SWX_RUBY_ROOT, 'README'))
+@rails_usage = readme.slice(readme.index("=== Rails Usage\n")..-1)
 
 begin
   require 'fileutils'
@@ -17,7 +18,7 @@ begin
 		puts '*** Copying config file to config/swx.yml ***'
     cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'config', 'swx.yml'), "#{RAILS_ROOT}/config/swx.yml")
   end
-  
+
 	# Copy SWX controller
 	unless File.exist?("#{RAILS_ROOT}/app/controllers/swx_controller.rb")
 		puts '*** Copying SWX controller to app/controllers/swx_controller.rb ***'
@@ -29,17 +30,19 @@ begin
 		puts '*** Creating services directory at app/services ***'
 		mkdir("#{RAILS_ROOT}/app/services")
 	end
+
+	unless OPTIONS[:essentials]
+  	# Copy TestDataTypes class to app/services
+  	unless File.exist?("#{RAILS_ROOT}/app/services/test_data_types.rb")
+  		puts '*** Copying TestDataTypes service class to app/services ***'
+  		cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'services', 'test_data_types.rb'), "#{RAILS_ROOT}/app/services/test_data_types.rb")
+  	end
 	
-	# Copy TestDataTypes class to app/services
-	unless File.exist?("#{RAILS_ROOT}/app/services/test_data_types.rb")
-		puts '*** Copying TestDataTypes service class to app/services ***'
-		cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'services', 'test_data_types.rb'), "#{RAILS_ROOT}/app/services/test_data_types.rb")
-	end
-	
-	# Copy HelloWorld class to app/services
-	unless File.exist?("#{RAILS_ROOT}/app/services/hello_world.rb")
-		puts '*** Copying HelloWorld service class to app/services ***'
-		cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'services', 'hello_world.rb'), "#{RAILS_ROOT}/app/services/hello_world.rb")
+  	# Copy HelloWorld class to app/services
+  	unless File.exist?("#{RAILS_ROOT}/app/services/hello_world.rb")
+  		puts '*** Copying HelloWorld service class to app/services ***'
+  		cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'services', 'hello_world.rb'), "#{RAILS_ROOT}/app/services/hello_world.rb")
+  	end
 	end
 	
 	# Add route for SWX gateway to routes.rb
@@ -55,12 +58,12 @@ begin
 	require 'json'
 	puts ': JSON gem detected ***'
 	
-	puts @getting_started
+	puts @rails_usage
 rescue LoadError
-	puts @getting_started
+	puts @rails_usage
 	
-	puts '!!!!! You do not have the JSON gem installed. SWX on Rails will not function without it.'
-	puts '!!!!! Please "gem install json" to get the JSON gem, then SWX on Rails should be ready to roll.'
+	puts '!!!!! You do not have the JSON gem installed. SWX Ruby will not function without it.'
+	puts '!!!!! Please "gem install json" to get the JSON gem, then SWX Ruby should be ready to roll.'
 rescue Exception => e
   puts 'ERROR INSTALLING SWX Ruby: ' + e.message
 end
