@@ -30,7 +30,7 @@ After installing the gem, do:
 
 This will unpack a plugin into your Rails app. For further explanation of the files installed, see 'Rails Usage' below.
 
-<b>Living on the Edge:</b> The Rails init script (init.rb) sits in the root of the SWX Ruby tree, thus you can simply throw the git HEAD into vendor/plugins/swxruby to run the plugin on edge
+<b>Living on the Edge:</b> The Rails init script (init.rb) sits in the root of the SWX Ruby tree, thus you can simply throw the git HEAD into vendor/plugins/swxruby to run the plugin on edge.
 
   git clone git://github.com/meekish/swxruby.git vendor/plugins/swxruby
   ruby vendor/plugins/swxruby/install.rb
@@ -86,7 +86,7 @@ Here's a full Merb app (this and a Flash client are included in examples/standal
     end
   end
   
-  # Start with 'merb -I standalone.rb' and you're off!
+  # Fire it up with 'merb -I standalone.rb' and you're off!
   
 === Rails Plugin Usage
 
