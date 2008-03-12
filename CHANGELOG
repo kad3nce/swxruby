@@ -1,3 +1,14 @@
+== 0.7 2008-03-11
+
+* 1 major enhancement:
+  * Gem Release
+
+* 1 minor enhancement:
+  * Added handling of symbols
+
+* Miscellaneous:
+  * Fleshed out README file quite a bit
+  
 == 0.5 2007-11-29
 
 * 1 major enhancement:
