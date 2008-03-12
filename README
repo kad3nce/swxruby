@@ -60,7 +60,7 @@ This will unpack a plugin into your Rails app. For further explanation of the fi
   
 === Rails Plugin Usage
 
-When running as Rails plugin, SWX Ruby will look for your service classes in
+When running as a Rails plugin, SWX Ruby will look for your service classes in
 RAILS_ROOT/app/services. Simply create standard Ruby classes and drop them
 in this folder. SWX Ruby will instantiate your service class (while forcing
 it into the SwxServiceClasses namespace), call the specified method, and
