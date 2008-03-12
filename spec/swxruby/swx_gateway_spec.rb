@@ -25,9 +25,9 @@ describe 'SwxGateway#init_service_class' do
 	  lambda { SwxServiceClasses::HelloWorld }.should_not raise_error(NameError)
 	end
 	
-	it 'should not initialize the service classes in the top-level namespace' #do
-		#lambda { HelloWorld }.should raise_error(NameError)
-	#end
+  it 'should not initialize the service classes in the top-level namespace' do
+    lambda { HelloWorld }.should raise_error(NameError)
+  end
 	
 	it 'should initialize all of the service classes in the service classes folder' do
 		lambda { SwxServiceClasses::HelloWorld }.should_not raise_error(NameError)
