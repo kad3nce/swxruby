@@ -51,6 +51,10 @@ class SwxGateway
 	  #   # calls params[:method].underscore
 	  #   # => A binary string of SWX bytecode containing the result of +Simple.new#add_numbers(1, 2)+; no debugging and allowing access from the specified url
     def process(params)
+      # Set defaults if the SWX gateway isn't configure
+      unless swx_config
+        swx_config = {'compression_level' => 4, 'allow_domain' => true}
+      end
 			# convert JSON arguments to a Ruby object
 			args = json_to_ruby params[:args]
 			
@@ -61,7 +65,7 @@ class SwxGateway
 			  args = nillify_nulls(args)
   		end
 			
-			# Fetch the class contsant for the specified service class
+			# Fetch the class constant for the specified service class
 			validate_service_class_name(params[:serviceClass])
       service_class = class_eval("SwxServiceClasses::#{params[:serviceClass]}")
 
