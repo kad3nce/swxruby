@@ -51,10 +51,9 @@ class SwxGateway
 	  #   # calls params[:method].underscore
 	  #   # => A binary string of SWX bytecode containing the result of +Simple.new#add_numbers(1, 2)+; no debugging and allowing access from the specified url
     def process(params)
-      # Set defaults if the SWX gateway isn't configure
-      unless swx_config
-        swx_config = {'compression_level' => 4, 'allow_domain' => true}
-      end
+      # Set defaults if the SWX gateway isn't configured
+      swx_config ||= {'compression_level' => 4, 'allow_domain' => true}
+      
 			# convert JSON arguments to a Ruby object
 			args = json_to_ruby params[:args]
 			
@@ -84,9 +83,11 @@ class SwxGateway
 				# Call the service class' method and pass in the arguments (uses an * to pass an array as multiple arguments)
 	      service_class.new.send(params[:method], *args)
 			end
-        
-      # assemble and return swx file 
+
+      # convert 'true' and 'false' to real booleans
       debug_param = params[:debug] == 'true' ? true : false
+      
+      # assemble and return swx file 
 			SwxAssembler.write_swf(service_class_response, debug_param, swx_config['compression_level'], params[:url], swx_config['allow_domain'])
     end
     
