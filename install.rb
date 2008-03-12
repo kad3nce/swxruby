@@ -7,7 +7,7 @@ end
 
 SWX_RUBY_ROOT ||= File.expand_path(File.dirname(__FILE__))
 readme = IO.readlines(File.join(SWX_RUBY_ROOT, 'README'))
-@rails_usage = readme.slice(readme.index("=== Rails Usage\n")..-1)
+@rails_usage = readme.slice(readme.index("=== Rails Plugin Usage\n")..-1)
 
 begin
   require 'fileutils'
@@ -16,7 +16,7 @@ begin
 	# Copy config file
   unless File.exist?("#{RAILS_ROOT}/config/swx.yml")
 		puts '*** Copying config file to config/swx.yml ***'
-    cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'config', 'swx.yml'), "#{RAILS_ROOT}/config/swx.yml")
+    cp(File.join(SWX_RUBY_ROOT, 'lib', 'swxruby', 'rails_integration', 'swx.yml'), "#{RAILS_ROOT}/config/swx.yml")
   end
 
 	# Copy SWX controller
