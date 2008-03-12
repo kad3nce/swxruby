@@ -3,9 +3,15 @@ require 'rake/clean'
 require 'rake/gempackagetask'
 require 'rake/rdoctask'
 require 'spec/rake/spectask'
+require './lib/swxruby'
 
 NAME = 'swxruby'
 SUDO = 'sudo'
+
+task :release do
+  sh("rubyforge add_release 4428 5478 #{SwxRuby::VERSION} ./pkg/swxruby-#{SwxRuby::VERSION}.gem")
+end
+
 
 # ==============================
 # = Packaging and Installation =
@@ -14,6 +20,7 @@ CLEAN.include ["**/.*.swf", "pkg", "*.gem", "doc"]
 
 spec = Gem::Specification.new do |s|
   s.name         = NAME
+  s.rubyforge_project = NAME
   s.version      = SwxRuby::VERSION
   s.author       = 'Jed Hurt'
   s.email        = 'jed.hurt@gmail.com'
