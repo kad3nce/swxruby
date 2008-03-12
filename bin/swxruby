@@ -1,7 +1,4 @@
 #!/usr/bin/env ruby
-#
-#  Created by Jed Hurt on 2008-1-1.
-#  Copyright (c) 2008. All rights reserved.
 
 begin
   require 'rubygems'
@@ -12,7 +9,7 @@ end
 require 'optparse'
 
 OPTIONS = {}
-MANDATORY_OPTIONS = %w(path)
+MANDATORY_OPTIONS = %w(rails_dir)
 
 parser = OptionParser.new do |opts|
   opts.banner = <<BANNER
@@ -25,7 +22,9 @@ Options are:
 BANNER
   opts.separator ""
   opts.on('--rails RAILS_DIR',
-          "The root of your Rails application") { |path| OPTIONS[:path] = path }
+          "The root of your Rails application") { |rails_dir| OPTIONS[:rails_dir] = rails_dir }
+  opts.on('--essentials',
+          "Don't unpack example service classes") { OPTIONS[:essentials] = true }
   opts.on("-h", "--help",
           "Show this help message.") { puts opts; exit }
   opts.parse!(ARGV)
@@ -42,7 +41,7 @@ end
 require 'fileutils'
 include FileUtils
 
-RAILS_ROOT = File.expand_path(OPTIONS[:path])
+RAILS_ROOT = File.expand_path(OPTIONS[:rails_dir])
 SWX_RUBY_ROOT = File.expand_path(File.join(File.dirname(__FILE__), '..'))
 
 unless File.exist?("#{RAILS_ROOT}/vendor/plugins/swxruby")
