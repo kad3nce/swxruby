@@ -54,4 +54,5 @@ unless File.exist?("#{RAILS_ROOT}/vendor/plugins/swxruby/init.rb")
   cp(File.join(SWX_RUBY_ROOT, 'init.rb'), "#{RAILS_ROOT}/vendor/plugins/swxruby/init.rb")
 end
 
+ESSENTIALS = OPTIONS[:essentials]
 require File.join(SWX_RUBY_ROOT, 'install.rb')

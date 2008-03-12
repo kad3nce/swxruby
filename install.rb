@@ -31,7 +31,7 @@ begin
 		mkdir("#{RAILS_ROOT}/app/services")
 	end
 
-	unless OPTIONS[:essentials]
+	unless ESSENTIALS
   	# Copy TestDataTypes class to app/services
   	unless File.exist?("#{RAILS_ROOT}/app/services/test_data_types.rb")
   		puts '*** Copying TestDataTypes service class to app/services ***'
