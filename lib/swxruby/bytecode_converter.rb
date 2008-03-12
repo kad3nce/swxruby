@@ -25,9 +25,7 @@ class BytecodeConverter
 	  end
 	
 	  protected
-		# ================================
-		# = Data Type Conversion Methods =
-		# ================================
+		# = Data Type Conversion Methods
 		def complex_data_structure_to_bytecode(data) #:nodoc#
 			bytecode = []
 			
@@ -127,7 +125,11 @@ class BytecodeConverter
 		end
 		
 		def string_to_bytecode(string) #:nodoc#
-	    DataTypeCodes::STRING + string.unpack('H*').to_s.upcase + NULL_TERMINATOR
+	    DataTypeCodes::STRING + string.unpack('H*').join.upcase + NULL_TERMINATOR
+	  end
+	  
+	  def symbol_to_bytecode(symbol)
+      string_to_bytecode(symbol.to_s)
 	  end
 	  
 	  def trueclass_to_bytecode(*args) #:nodoc#
