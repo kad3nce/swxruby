@@ -58,7 +58,7 @@ end
 Rake::RDocTask.new(:rdoc) do |rd|    
   rd.main = 'README' # 'name' will be the initial page displayed
   rd.rdoc_dir = 'doc' # set the output directory
-  rd.rdoc_files.add(['README', 'LICENSE', 'CHANGELOG', 'lib/**/*.rb']) # List of files to include in the rdoc generation
+  rd.rdoc_files.add(['README', 'LICENSE', 'CHANGELOG', 'lib/**/*.rb', 'examples/**/*.rb']) # List of files to include in the rdoc generation
   rd.title = 'SWX Ruby: The Ruby Implementation of SWX RPC' # Title of the RDoc documentation
   rd.options << '--inline-source' # Show method source code inline, rather than via a popup link
   rd.options << '--line-numbers' # Include line numbers in the source code
@@ -89,6 +89,10 @@ Rake::RDocTask.new(:rdoc) do |rd|
   # rd.options << "--webcvs url" # Specify a URL for linking to a web frontend to CVS.    
 end
 
+desc 'Sync docs at swxruby.org'
+task :sync_docs => :rdoc do
+  sh('rsync -avz ./doc/* meekish@swxruby.org:/var/www/www.swxruby.org/web/docs/')
+end
 
 # =========
 # = Specs =
