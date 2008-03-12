@@ -87,6 +87,10 @@ describe BytecodeConverter, 'in regard to hashes' do
   it %q[should convert a hash with string and integer values to bytecode] do
     BytecodeConverter.convert({'it' => 'works', 'number' => 42}).should == '961D00006E756D62657200072A0000000069740000776F726B7300070200000043'
   end
+  
+  it %q[should convert a hash with symbols for keys to bytecode] do
+    BytecodeConverter.convert({:it => 'works', :number => 42}).should == '961D00006E756D62657200072A0000000069740000776F726B7300070200000043'
+  end
 
   it %q[should convert a hash with nested arrays to bytecode] do
     BytecodeConverter.convert({'they' => ['really', 'work'], 'numbers' => [1, 2, 3]}).should == '960900006E756D626572730096140007030000000702000000070100000007030000004296060000746865790096130000776F726B00007265616C6C7900070200000042960500070200000043'
@@ -138,6 +142,18 @@ describe BytecodeConverter, 'in regard to strings' do
     BytecodeConverter.convert('').should == '0000'
   end
 end
+
+describe BytecodeConverter, 'in regard to symbols' do
+  it 'should convert :hello to bytecode' do
+    BytecodeConverter.convert(:hello).should == '0068656C6C6F00'
+  end
+  
+  it 'should convert :goodbye to bytecode' do
+    BytecodeConverter.convert(:goodbye).should == '00676F6F6462796500'
+  end
+end
+
+
     
 describe BytecodeConverter, 'in regard to unhandled datatypes' do
   it 'should raise an exception when asked to convert an unhandled data type' do

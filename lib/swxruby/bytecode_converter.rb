@@ -128,9 +128,9 @@ class BytecodeConverter
 	    DataTypeCodes::STRING + string.unpack('H*').join.upcase + NULL_TERMINATOR
 	  end
 	  
-	  def symbol_to_bytecode(symbol)
+    def symbol_to_bytecode(symbol)
       string_to_bytecode(symbol.to_s)
-	  end
+    end
 	  
 	  def trueclass_to_bytecode(*args) #:nodoc#
       DataTypeCodes::BOOLEAN + '01'
