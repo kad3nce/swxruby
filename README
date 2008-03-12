@@ -30,18 +30,20 @@ After installing the gem, do:
 
 This will unpack a plugin into your Rails app. For further explanation of the files installed, see 'Rails Usage' below.
 
-<b>Living on the Edge:</b> The Rails init script (init.rb) sits in the root of the SWX Ruby tree, thus you can throw the git HEAD into vendor/plugins/swxruby to run the plugin off of HEAD
+<b>Living on the Edge:</b> The Rails init script (init.rb) sits in the root of the SWX Ruby tree, thus you can simply throw the git HEAD into vendor/plugins/swxruby to run the plugin on edge
 
   git clone git://github.com/meekish/swxruby.git vendor/plugins/swxruby
   ruby vendor/plugins/swxruby/install.rb
 
 === Gem Usage (For Merb, Camping, Sinatra, et al.)
 
-  # Require the SWX Ruby gem
+Require the SWX Ruby gem
+
   require 'rubygems'
   require 'swxruby'
 
-  # Define a service class in the SwxServiceClasses namespace
+Define a service class in the SwxServiceClasses namespace
+
   module SwxServiceClasses
     class Simple
       def echo_data(data)
@@ -50,13 +52,41 @@ This will unpack a plugin into your Rails app. For further explanation of the fi
     end
   end
   
-  # Start making calls to SwxGateway#process
+Start making calls to SwxGateway#process
+
   @swx_bytecode = SwxGateway.process(:serviceClass => 'Simple', :method => 'echo_data', :args => 'Hello World!', :debug => true)
-  # => Returns a binary string of SWX bytecode containing the result of Simple.new#echo_data('Hello World!')
+  # => Returns a binary string of SWX bytecode containing the result of SwxServiceClasses::Simple.new.echo_data('Hello World!')
   
-  # Use your framework's preferred method to wrap the swx bytecode in a file shell and send it on its way
-  # Here's how Rails and Merb do it
+Use your framework's preferred method to wrap the swx bytecode in a file shell and send it on its way. Here's how Rails and Merb do it:
+
   send_data(@swx_bytecode, :filename => 'data.swf', :type => 'application/swf')
+  
+==== Example of Gem Usage
+
+Here's a full Merb app (this and a Flash client are included in examples/standalone/)  
+
+  # standalone.rb
+  
+  require 'rubygems'
+  require 'swxruby'
+
+  # Service Class
+  class SwxServiceClasses::HelloMerb
+    def just_say_the_words
+      'Hello from Merb!'
+    end
+  end
+
+  # Merb Application
+  Merb::Router.prepare { |r| r.match('/').to(:controller => 'swx_ruby', :action =>'gateway') }
+
+  class SwxRuby < Merb::Controller
+    def gateway
+      send_data(SwxGateway.process(params), :filename => 'data.swf', :type => 'application/swf')
+    end
+  end
+  
+  # Start with 'merb -I standalone.rb' and you're off!
   
 === Rails Plugin Usage
 
@@ -66,7 +96,7 @@ in this folder. SWX Ruby will instantiate your service class (while forcing
 it into the SwxServiceClasses namespace), call the specified method, and
 send the response back to the Flash Player.
 
-Take a peek at app/services/hello_world.rb for a working service class example.
+Take a peek at services/hello_world.rb for a working service class example.
 Alright, alright, I'll just show it to you here:
 
   # hello_world.rb----------------------------------------
@@ -81,7 +111,7 @@ Alright, alright, I'll just show it to you here:
 
 Here's an example to call HelloWorld#just_say_the_words from Flash 
 (place a MovieClip on stage with an instance name of 'loader' and
-fire up your development server):
+fire up your Rails development server):
 
   //------------------------------------------------------
   loader.serviceClass = "HelloWorld";
@@ -98,13 +128,16 @@ fire up your development server):
   //------------------------------------------------------
 
 When you're ready for some robust ActionScriptery, head to 
-http://swxformat.org/download/ to grab the SWX ActionScript library.
+http://swxformat.org/download to grab the SWX ActionScript library.
 
 Oh yeah, you may return ActiveRecord objects from your service classes; 
 SWX Ruby will happily serialize them for you. Go ahead, give it a try!
 
+NOTE: You may notice some Security Sandbox Violations when testing the example
+above in the Flash IDE. Rest assured, this is OK. Visit 
+http://swxformat.org/132 for further explanation.
+
+=== Get In Touch
+
 Please post bug reports/suggestions to http://groups.google.com/group/swxruby
 
-  NOTE: You may notice some Security Sandbox Violations when testing the example
-  above in the Flash IDE. Rest assured, this is OK. Visit 
-  http://swxformat.org/132 for further explanation.
