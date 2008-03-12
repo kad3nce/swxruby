@@ -67,7 +67,7 @@ if File.exist?(RSPEC_ON_RAILS_FILE)
 		end
 	end
 else
-	puts 'RSpec on Rails plugin not installed. Skipping Rails integration specifications.'
+	puts 'Not installed as Rails plugin. Skipping Rails integration specifications.'
 end
 
 
