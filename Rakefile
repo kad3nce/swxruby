@@ -5,7 +5,6 @@ require 'rake/rdoctask'
 require 'spec/rake/spectask'
 
 NAME = 'swxruby'
-SWXRUBY_VERSION = '0.7'
 SUDO = 'sudo'
 
 # ==============================
@@ -15,7 +14,7 @@ CLEAN.include ["**/.*.swf", "pkg", "*.gem", "doc"]
 
 spec = Gem::Specification.new do |s|
   s.name         = NAME
-  s.version      = SWXRUBY_VERSION
+  s.version      = SwxRuby::VERSION
   s.author       = 'Jed Hurt'
   s.email        = 'jed.hurt@gmail.com'
   s.homepage     = 'http://swxruby.org'
@@ -44,7 +43,7 @@ end
 
 desc 'Run :package and install the resulting .gem'
 task :install => :package do
-  sh %{#{SUDO} gem install --local pkg/#{NAME}-#{SWXRUBY_VERSION}.gem --no-rdoc --no-ri}
+  sh %{#{SUDO} gem install --local pkg/#{NAME}-#{SwxRuby::VERSION}.gem --no-rdoc --no-ri}
 end
 
 desc 'Run :clean and uninstall the .gem'
