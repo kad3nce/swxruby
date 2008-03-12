@@ -1,8 +1,0 @@
---- 
-:rubyforge_project: swxruby
-:author: Jed Hurt
-:version: "0.7"
-:name: SWX Ruby
-:summary: The Ruby implementation of SWX RPC.
-:email: jed.hurt@gmail.com
-:homepage: http://swxruby.org
