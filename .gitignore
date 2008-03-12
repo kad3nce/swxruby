@@ -1,10 +1,10 @@
+*.gem
+examples/**/*.swf
 test/*
 test/fixtures/*
 test/unit/*
 log/*.log
-examples/log
-examples/log/*
-examples/**/log
+lib/**/log
 db/*.sqlite3
 tmp/**/*
 .DS_Store
