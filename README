@@ -59,7 +59,7 @@ Start making calls to SwxGateway#process
   
 Use your framework's preferred method to wrap the swx bytecode in a file shell and send it on its way. Here's how Rails and Merb do it:
 
-  send_data(@swx_bytecode, :filename => 'data.swf', :type => 'application/swf')
+  send_data(@swx_bytecode, :filename => 'data.swf', :type => 'application/swf', :disposition => 'inline')
   
 ==== Example of Gem Usage
 
@@ -82,7 +82,7 @@ Here's a full Merb app (this and a Flash client are included in examples/standal
 
   class SwxRuby < Merb::Controller
     def gateway
-      send_data(SwxGateway.process(params), :filename => 'data.swf', :type => 'application/swf')
+      send_data(SwxGateway.process(params), :filename => 'data.swf', :type => 'application/swf', :disposition => 'inline')
     end
   end
   

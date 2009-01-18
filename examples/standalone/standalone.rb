@@ -32,6 +32,6 @@ Merb::Router.prepare { |r| r.match('/').to(:controller => 'swx_ruby_controller',
 
 class SwxRubyController < Merb::Controller
   def gateway
-    send_data(SwxGateway.process(params), :filename => 'data.swf', :type => 'application/swf')
+    send_data(SwxGateway.process(params), :filename => 'data.swf', :type => 'application/swf', :disposition => 'inline')
   end
 end

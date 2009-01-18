@@ -62,7 +62,7 @@ if File.exist?(RSPEC_ON_RAILS_FILE)
 	  end
 	
 		it 'should stream the generated SWX bytecode back to the user' do
-			@controller.should_receive(:send_data).with('swx bytecode', :type => 'application/swf', :filename => 'data.swf')
+			@controller.should_receive(:send_data).with('swx bytecode', :type => 'application/swf', :filename => 'data.swf', :disposition => 'inline')
 			@controller.render(:swx => 'some data')
 		end
 	end

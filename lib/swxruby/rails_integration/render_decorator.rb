@@ -12,7 +12,7 @@ ActionController::Base.class_eval do
 											 params[:url], 
 											 SwxGateway.swx_config['allow_domain']
 										 )
-			send_data(swf_bytecode, :type => 'application/swf', :filename => 'data.swf')
+			send_data(swf_bytecode, :type => 'application/swf', :filename => 'data.swf', :disposition => 'inline')
 		else
 			render_without_swx(*args, &block)
 		end
