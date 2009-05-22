@@ -109,8 +109,27 @@ class SwxAssembler
 			swf.sub('LLLLLLLL', swf_size_in_bytes)
 	  end
 	  
+	  # Converts any supported Ruby object into bytecode and wraps it in a SWX shell.
+    # 
+		# ==== Parameters
+		# * <tt>data</tt> -- Any object that can be represented in AVM1 (or converted to an object that AVM1 supports, i.e. symbol are converted to strings).
+		# * <tt>debug</tt> -- Boolean. If set to true, the generated SWX file will attempt to establish a local connection to the SWX Analyzer when opened in Flash Player.
+		# * <tt>compression_level</tt> -- Specifies the level of gzip compression to apply to the swx file.
+		# * <tt>allow_domain_url</tt> -- (optional) the url of the SWF file making this request. Added to the generated SWX file to skirt cross-domain issues. If not specified, the resulting SWX file will allow access from any domain
+		# * <tt>allow_domain</tt> -- 
+    # 
+		# ==== Examples
+	  #   SwxGateway.process(:args => 'Hello World!', :debug => true, :method => 'echo_data', :serviceClass => 'Simple', :url => 'http://myfunkysite/swxconsumer.swf')
+	  #   # => A binary string of SWX bytecode containing the result of +Simple.new#echo_data('Hello World!')+; debugging enabled and allowing access from the specified url
+    #   
+	  #   SwxGateway.process(:args => 'Hello World!', :debug => true, :method => 'echo_data', :serviceClass => 'Simple')
+	  #   # => Same as previous, except allows access from any url
+    #   
+	  #   SwxGateway.process(:args => [1,2], :debug => false, :method => 'addNumbers', :serviceClass => 'Simple', :url => 'http://myfunkysite/swxconsumer.swf')
+	  #   # calls params[:method].underscore
+	  #   # => A binary string of SWX bytecode containing the result of +Simple.new#add_numbers(1, 2)+; no debugging and allowing access from the specified url
 		def write_swf(data, debug=false, compression_level=4, allow_domain_url='', allow_domain=true)
-		  # Set up SwfAssembler state
+		  # Set up SwxAssembler state
 		  @debug = debug
 		  @compression_level = compression_level
 		  @allow_domain_url = allow_domain_url
@@ -123,14 +142,6 @@ class SwxAssembler
 
       # Compress the file if compression is turned on
       swx_file = compress_swx_file(swx_file, compression_level) if compression_level > 0
-
-      # ====================================
-      # = TODO: Remove this before release =
-      # ====================================
-      # Write the file (for manual 'loadMovie' testing in Flash)
-      # File.open('/Users/Jed/Development/Libraries/rSWX/testing/flash/rswx_data.swx', 'w+') do |file|
-      #   file << swx_file
-      # end      
 
       swx_file
 		end
